@@ -1,0 +1,22 @@
+Louis BOUDDHOU
+Final Project  
+CSCI4229/5229
+
+Time spent to complete assignment: 5 hours
+
+The key bindings are:
+  m          Modes (orthogonal, perspective, first person navigation)
+  n          Interrupt light movement
+  l          Toggle lighting
+  +/-        Changes field of view for perspective
+  </>        Move light when stopped
+  x          Toggle axes on and off
+  ESC        Exit
+  0          Reset view angle
+
+  In orthogonal and perspective modes:
+  	arrows     Change view angle 
+    
+  In first person navigation
+  	arrows     Change view angle on static plane
+  	w/s        Change height

@@ -1,0 +1,18 @@
+Louis BOUDDHOU - 09/17/15
+
+Assignment 2: Lorenz Attractor
+Professor: Schreuder
+CSCI4229/5229 Fall 2015
+
+Time to complete the assignment: ~3 hours
+
+Note about Lorenz: It seems like the graph represents two connected orbits.
+
+The key bindings are:
+  +/-    Increase/decrease w
+  arrows Change view angle
+  0      Reset view angle
+  ESC    Exit
+
+1) First "make"
+2) Then just, run "lorenz"

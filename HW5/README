@@ -1,0 +1,21 @@
+Louis BOUDDHOU: Rubik’s cube, house and half-moon with moving light source
+Assignment 5: Lighting
+CSCI4229/5229
+
+Time spent to complete assignment: 3 hours
+
+The key bindings are:
+  m          Modes (orthogonal, perspective, first person navigation)
+  n          Toggle light movement
+  +/-        Changes field of view for perspective
+  </>        Move light when stopped
+  a          Toggle axes on and off
+  ESC        Exit
+  0          Reset view angle
+
+  In orthogonal and perspective modes:
+  	arrows     Change view angle 
+    
+  In first person navigation
+  	arrows     Change view angle on static plane
+  	w/s        Change height

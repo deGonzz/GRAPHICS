@@ -1,0 +1,21 @@
+Louis BOUDDHOU - 09/17/15
+
+Assignment 2: Lorenz Attractor
+Professor: Schreuder
+CSCI4229/5229 Fall 2015
+
+Time to complete the assignment: ~3 hours
+
+Note about hw2: It seems like the graph represents two connected orbits.
+
+The key bindings are:
+  q/w    Increase/decrease s parameter of Lorenz curve
+  o/p    Increase/decrease b parameter of Lorenz curve
+  z/m    Increase/decrease r parameter of Lorenz curve
+  +/-    Increase/decrease w
+  arrows Change view angle
+  0      Reset view angle
+  ESC    Exit
+
+1) First "make"
+2) Then just, run “hw2”
