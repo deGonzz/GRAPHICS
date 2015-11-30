@@ -2,6 +2,7 @@
  *  Final Project
  *
  *  Used class exemple 8, 9, 13 and 15 to help
+ *  Was helped by Zhihao 
  * 
  *  Key bindings:
  *  m          Modes (orthogonal, perspective, first person navigation)
@@ -69,6 +70,8 @@ unsigned int concrete_wall;
 unsigned int building_wall;
 unsigned int building_windows;
 unsigned int modern_building;
+unsigned int cloud_window;
+unsigned int old_facade;
 
 // roof textures
 unsigned int roof_wood_texture;
@@ -86,91 +89,91 @@ unsigned int simple_pavement;
 
 static void finalHouse1(float x, float z);
 
-/*
- *  Draw a cube
- *     at (x,y,z)
- *     dimentions (dx,dy,dz)
- *     rotated th about the y axis
- */
-static void cube(double x,double y,double z,
-                 double dx,double dy,double dz,
-                 double th)
-{
-   //  Set specular color to white
-   float white[] = {1,1,1,1};
-   float Emission[]  = {0.0,0.0,0.01*emission,1.0};
-   glMaterialfv(GL_FRONT_AND_BACK,GL_SHININESS,shinyvec);
-   glMaterialfv(GL_FRONT_AND_BACK,GL_SPECULAR,white);
-   glMaterialfv(GL_FRONT_AND_BACK,GL_EMISSION,Emission);
-   //  Save transformation
-   glPushMatrix();
-   //  Offset, scale and rotate
-   glTranslated(x,y,z);
-   glRotated(th,0,1,0);
-   glScaled(dx,dy,dz);
-   //  Enable textures
-   glEnable(GL_TEXTURE_2D);
-   glTexEnvi(GL_TEXTURE_ENV,GL_TEXTURE_ENV_MODE,tmode?GL_REPLACE:GL_MODULATE);
-   glColor3f(1,1,1);
-   //  Front
-   glBindTexture(GL_TEXTURE_2D,dice[1]);
-   glBegin(GL_QUADS);
-   glNormal3f( 0, 0, 1);
-   glTexCoord2f(0,0); glVertex3f(-1,-1, 1);
-   glTexCoord2f(1,0); glVertex3f(+1,-1, 1);
-   glTexCoord2f(1,1); glVertex3f(+1,+1, 1);
-   glTexCoord2f(0,1); glVertex3f(-1,+1, 1);
-   glEnd();
-   //  Back
-   glBindTexture(GL_TEXTURE_2D,dice[2]);
-   glBegin(GL_QUADS);
-   glNormal3f( 0, 0,-1);
-   glTexCoord2f(0,0); glVertex3f(+1,-1,-1);
-   glTexCoord2f(1,0); glVertex3f(-1,-1,-1);
-   glTexCoord2f(1,1); glVertex3f(-1,+1,-1);
-   glTexCoord2f(0,1); glVertex3f(+1,+1,-1);
-   glEnd();
-   //  Right
-   glBindTexture(GL_TEXTURE_2D,dice[3]);
-   glBegin(GL_QUADS);
-   glNormal3f(+1, 0, 0);
-   glTexCoord2f(0,0); glVertex3f(+1,-1,+1);
-   glTexCoord2f(1,0); glVertex3f(+1,-1,-1);
-   glTexCoord2f(1,1); glVertex3f(+1,+1,-1);
-   glTexCoord2f(0,1); glVertex3f(+1,+1,+1);
-   glEnd();
+// /*
+//  *  Draw a cube
+//  *     at (x,y,z)
+//  *     dimentions (dx,dy,dz)
+//  *     rotated th about the y axis
+//  */
+// static void cube(double x,double y,double z,
+//                  double dx,double dy,double dz,
+//                  double th)
+// {
+//    //  Set specular color to white
+//    float white[] = {1,1,1,1};
+//    float Emission[]  = {0.0,0.0,0.01*emission,1.0};
+//    glMaterialfv(GL_FRONT_AND_BACK,GL_SHININESS,shinyvec);
+//    glMaterialfv(GL_FRONT_AND_BACK,GL_SPECULAR,white);
+//    glMaterialfv(GL_FRONT_AND_BACK,GL_EMISSION,Emission);
+//    //  Save transformation
+//    glPushMatrix();
+//    //  Offset, scale and rotate
+//    glTranslated(x,y,z);
+//    glRotated(th,0,1,0);
+//    glScaled(dx,dy,dz);
+//    //  Enable textures
+//    glEnable(GL_TEXTURE_2D);
+//    glTexEnvi(GL_TEXTURE_ENV,GL_TEXTURE_ENV_MODE,tmode?GL_REPLACE:GL_MODULATE);
+//    glColor3f(1,1,1);
+//    //  Front
+//    glBindTexture(GL_TEXTURE_2D,dice[1]);
+//    glBegin(GL_QUADS);
+//    glNormal3f( 0, 0, 1);
+//    glTexCoord2f(0,0); glVertex3f(-1,-1, 1);
+//    glTexCoord2f(1,0); glVertex3f(+1,-1, 1);
+//    glTexCoord2f(1,1); glVertex3f(+1,+1, 1);
+//    glTexCoord2f(0,1); glVertex3f(-1,+1, 1);
+//    glEnd();
+//    //  Back
+//    glBindTexture(GL_TEXTURE_2D,dice[2]);
+//    glBegin(GL_QUADS);
+//    glNormal3f( 0, 0,-1);
+//    glTexCoord2f(0,0); glVertex3f(+1,-1,-1);
+//    glTexCoord2f(1,0); glVertex3f(-1,-1,-1);
+//    glTexCoord2f(1,1); glVertex3f(-1,+1,-1);
+//    glTexCoord2f(0,1); glVertex3f(+1,+1,-1);
+//    glEnd();
+//    //  Right
+//    glBindTexture(GL_TEXTURE_2D,dice[3]);
+//    glBegin(GL_QUADS);
+//    glNormal3f(+1, 0, 0);
+//    glTexCoord2f(0,0); glVertex3f(+1,-1,+1);
+//    glTexCoord2f(1,0); glVertex3f(+1,-1,-1);
+//    glTexCoord2f(1,1); glVertex3f(+1,+1,-1);
+//    glTexCoord2f(0,1); glVertex3f(+1,+1,+1);
+//    glEnd();
 
-   //  Left
-   glBindTexture(GL_TEXTURE_2D,dice[4]);
-   glBegin(GL_QUADS);
-   glNormal3f(-1, 0, 0);
-   glTexCoord2f(0,0); glVertex3f(-1,-1,-1);
-   glTexCoord2f(1,0); glVertex3f(-1,-1,+1);
-   glTexCoord2f(1,1); glVertex3f(-1,+1,+1);
-   glTexCoord2f(0,1); glVertex3f(-1,+1,-1);
-   glEnd();
-   //  Top
-   glBindTexture(GL_TEXTURE_2D,dice[5]);
-   glBegin(GL_QUADS);
-   glNormal3f( 0,+1, 0);
-   glTexCoord2f(0,0); glVertex3f(-1,+1,+1);
-   glTexCoord2f(1,0); glVertex3f(+1,+1,+1);
-   glTexCoord2f(1,1); glVertex3f(+1,+1,-1);
-   glTexCoord2f(0,1); glVertex3f(-1,+1,-1);
-   glEnd();
-   //  Bottom
-   glBindTexture(GL_TEXTURE_2D,dice[0]);
-   glBegin(GL_QUADS);
-   glNormal3f( 0,-1, 0);
-   glTexCoord2f(0,0); glVertex3f(-1,-1,-1);
-   glTexCoord2f(1,0); glVertex3f(+1,-1,-1);
-   glTexCoord2f(1,1); glVertex3f(+1,-1,+1);
-   glTexCoord2f(0,1); glVertex3f(-1,-1,+1);
-   glEnd();
-   //  Undo transformations and textures
-   glPopMatrix();
-   glDisable(GL_TEXTURE_2D);
-}
+//    //  Left
+//    glBindTexture(GL_TEXTURE_2D,dice[4]);
+//    glBegin(GL_QUADS);
+//    glNormal3f(-1, 0, 0);
+//    glTexCoord2f(0,0); glVertex3f(-1,-1,-1);
+//    glTexCoord2f(1,0); glVertex3f(-1,-1,+1);
+//    glTexCoord2f(1,1); glVertex3f(-1,+1,+1);
+//    glTexCoord2f(0,1); glVertex3f(-1,+1,-1);
+//    glEnd();
+//    //  Top
+//    glBindTexture(GL_TEXTURE_2D,dice[5]);
+//    glBegin(GL_QUADS);
+//    glNormal3f( 0,+1, 0);
+//    glTexCoord2f(0,0); glVertex3f(-1,+1,+1);
+//    glTexCoord2f(1,0); glVertex3f(+1,+1,+1);
+//    glTexCoord2f(1,1); glVertex3f(+1,+1,-1);
+//    glTexCoord2f(0,1); glVertex3f(-1,+1,-1);
+//    glEnd();
+//    //  Bottom
+//    glBindTexture(GL_TEXTURE_2D,dice[0]);
+//    glBegin(GL_QUADS);
+//    glNormal3f( 0,-1, 0);
+//    glTexCoord2f(0,0); glVertex3f(-1,-1,-1);
+//    glTexCoord2f(1,0); glVertex3f(+1,-1,-1);
+//    glTexCoord2f(1,1); glVertex3f(+1,-1,+1);
+//    glTexCoord2f(0,1); glVertex3f(-1,-1,+1);
+//    glEnd();
+//    //  Undo transformations and textures
+//    glPopMatrix();
+//    glDisable(GL_TEXTURE_2D);
+// }
 
 
 static void cubex(double x,double y,double z,
@@ -346,6 +349,45 @@ static void cubey(double x,double y,double z,
    //  Undo transformations and textures
    glPopMatrix();
    glDisable(GL_TEXTURE_2D);
+}
+
+static void cylinder(double x,double y,double z,double r, double h, int cylinder_texture, double rep)
+{
+   const int d=5;
+   int th;
+   float yellow[] = {1.0,1.0,0.0,1.0};
+   float Emission[]  = {0.0,0.0,0.01*emission,1.0};
+   //  Save transformation
+   glPushMatrix();
+   //  Offset and scale
+   glTranslated(x,y,z);
+   glScaled(r,1,r);
+
+
+      glColor3f(1, 1 , 1);
+      glEnable(GL_TEXTURE_2D);
+      glTexEnvi(GL_TEXTURE_ENV,GL_TEXTURE_ENV_MODE,GL_MODULATE);
+      glBindTexture(GL_TEXTURE_2D,cylinder_texture);
+
+   glMaterialfv(GL_FRONT,GL_SHININESS,shinyvec);
+   glMaterialfv(GL_FRONT,GL_SPECULAR,yellow);
+   glMaterialfv(GL_FRONT,GL_EMISSION,Emission);
+   glBegin(GL_QUAD_STRIP);
+   for (th=0;th<=360;th+=d)
+   {
+      double x = Sin(th);
+      double z = Cos(th);
+      glNormal3d(x, 0, z);
+      glTexCoord2f(th/360.0f,0);
+      glVertex3d(x, 0, z);
+      glTexCoord2f(th/360.0f, rep);
+      glVertex3d(x, h, z);
+   }
+   glEnd();
+   glDisable(GL_TEXTURE_2D);
+
+   //  Undo transformations
+   glPopMatrix();
 }
 
 /*
@@ -619,7 +661,11 @@ static void Vertex(double th,double ph)
    glVertex3d(x,y,z);
 }
 
-static void sphere(double x,double y,double z,double r)
+static void sphere(double x,double y,double z,
+                     double r,
+                     double scale_x,
+                     double scale_y,
+                     double scale_z)
 {
    const int d=5;
    int th,ph;
@@ -630,7 +676,7 @@ static void sphere(double x,double y,double z,double r)
    glPushMatrix();
    //  Offset and scale
    glTranslated(x,y,z);
-   glScaled(r,r,r);
+   glScaled(scale_x,scale_y,scale_z);
    //  White sphere
    glColor3f(1,1,1);
    glMaterialfv(GL_FRONT,GL_SHININESS,shinyvec);
@@ -702,7 +748,7 @@ void display()
         float Position[]  = {distance*Cos(zh),ylight,distance*Sin(zh),1.0};
         //  Draw light position as sphere (still no lighting here)
         glColor3f(1,1,1);
-        sphere(Position[0],Position[1],Position[2] , 0.1);
+        sphere(Position[0],Position[1],Position[2],0.1 , 0.1,0.1,0.1);
         //  OpenGL should normalize normal vectors
         glEnable(GL_NORMALIZE);
         //  Enable lighting
@@ -784,15 +830,22 @@ void display()
          /* ********************************* STREET 1  ******************************************/ 
 
          /*********** ON Z ***********/
+
          // road 1 on z
+         cubex(0.0,0.0,-1.5 , 6.0,0.0,0.5 , 0 , ground , ground , ground , ground , ground , ground, 4);
+
+         // road 2 on z
          cubex(0.0,0.0,1.5 , 6.0,0.0,0.5 , 0 , ground , ground , ground , ground , ground , ground, 4);
 
          // road 2 on z
-         cubex(0.0,0.0,-1.5 , 6.0,0.0,0.5 , 0 , ground , ground , ground , ground , ground , ground, 4);
+         cubex(0.0,0.0,4.5 , 6.0,0.0,0.5 , 0 , ground , ground , ground , ground , ground , ground, 4);
 
          /*********** ON X ***********/
          // road 1 on x
          cubey(-4.8,0.002,-1.5 , 0.5,0.002,6.0 , 0 , ground , ground , ground , ground , ground , ground, 4);
+
+         // road 1 on x
+         cubey(6.2,0.002,-1.5 , 0.5,0.002,6.0 , 0 , ground , ground , ground , ground , ground , ground, 4);
 
          // walk way 1
          cubex(0.95,0.002,0.0 , 0.2,0.002,1.0 , 0 , ground , ground , ground , ground , stone_ground , ground, 6);
@@ -814,17 +867,25 @@ void display()
          /* ********************************* ROW 1 OF BUILDINGS **********************************/  
 
          /*
-            HOUSE 1 (1x1/1x2)
+            HOUSE (1x1/1x2)
          */
          // first frame
-         house(1.5,0.3,0.0 , 0.3,0.3,0.3 , 0 , walls , walls , walls , walls , walls , tiles , tiles , tiles , tiles, 2.5);
+         house(1.5,0.3,0.0 , 0.3,0.3,0.3 , 0 , walls , walls , walls , walls , walls , tiles , tiles , tiles , tiles, 3);
          // second middle  frame
-         house(2.2,0.3,0.0 , 0.7,0.3,0.7 , 0 , walls , walls , walls , walls , walls , tiles , tiles , tiles , tiles, 2.5);
+         house(2.2,0.3,0.0 , 0.7,0.3,0.7 , 0 , walls , walls , walls , walls , walls , tiles , tiles , tiles , tiles, 3);
          // third frame
-         house(2.9,0.3,0.0 , 0.5,0.3,0.5 , 0 , walls , walls , walls , walls , walls , tiles , tiles , tiles , tiles, 2.5);
+         house(2.9,0.3,0.0 , 0.5,0.3,0.5 , 0 , walls , walls , walls , walls , walls , tiles , tiles , tiles , tiles, 3);
 
          /*
-            HOUSE 2 (1x2/1x3)
+            HOUSE (1x2)
+         */
+         // first frame
+         house2(3.2,1.1,-0.6 , 0.3,1.1,0.15 , 0 , glass_window , glass_window , glass_window , glass_window , glass_window , 3);
+         // flat roof
+         cubex(3.2,2.21,-0.6 , 0.305,0.01,0.155 , 0 , metal_grey , metal_grey , metal_grey , metal_grey , metal_grey , metal_grey, 3);
+
+         /*
+            HOUSE (1x2/1x3)
          */
          // first glass frame first level
          house2(4.0,1.2,0.4 , 0.3,1.2,0.3 , 0 ,  glass_window, grey_brick_wall , glass_window , grey_brick_wall, grey_brick_wall, 6);
@@ -835,16 +896,15 @@ void display()
          cubex(4.9,1.2,0.4 , 0.002,1.2,0.1 , 0 , glass_window , glass_window , glass_window , glass_window , glass_window , glass_window, 3);
 
          // flat roof
-         cubex(4.3,2.43,0.4 , 0.7,0.03,0.35 , 0 , metal_grey , metal_grey , metal_grey , metal_grey , metal_grey , metal_grey, 3);
-         cubex(4.6,2.43,0.0 , 0.4,0.03,0.2 , 0 , metal_grey , metal_grey , metal_grey , metal_grey , metal_grey , metal_grey, 3);
+         cubex(4.0,2.43,0.4 , 0.305,0.03,0.305 , 0 , metal_grey , metal_grey , metal_grey , metal_grey , metal_grey , metal_grey, 3);
+         cubex(4.6,2.43,0.25 , 0.305,0.03,0.305 , 0 , metal_grey , metal_grey , metal_grey , metal_grey , metal_grey , metal_grey, 3);
 
          /*
-            HOUSE 3 (1x3/1x4)
+            HOUSE (1x2/1x3)
          */
-         // first frame
-         house(6.0,0.3,0.0 , 0.4,0.3,0.75 , 0 , old_brick , old_brick , old_brick , old_brick , old_brick , tiles , tiles , tiles , tiles, 6);
-         // second frame
-         house(5.8,0.5,-0.5 , 0.3,0.5,0.3 , 0 , old_brick , old_brick , old_brick , old_brick , old_brick , tiles , tiles , tiles , tiles, 6);
+         house2(4.5,0.8,-0.5 , 0.9,0.8,0.3 , 0, building_wall , building_wall , building_wall , building_wall , building_wall , 2);
+         // roof
+         cubex(4.5,1.61,-0.5 , 0.905,0.01,0.305 , 0 , concrete_wall , concrete_wall , concrete_wall , concrete_wall , concrete_wall , concrete_wall, 3);
 
          /*
             HOUSE -1 (1x1/-1x1)
@@ -889,6 +949,28 @@ void display()
          house2(-3.3,2.84,0.0 , 0.45,0.4,0.25 , 0, building_wall , building_wall , building_wall , building_wall , building_wall , 2);
          // fourth roof
          cubex(-3.3,3.25,0.0 , 0.455,0.01,0.255 , 0 , concrete_wall , concrete_wall , concrete_wall , concrete_wall , concrete_wall , concrete_wall, 3);
+
+         /*
+            HOUSE -4 (3x2)
+         */
+         // first frame
+         cylinder(5.05, 0, 3.0, 0.5,  1.0 , modern_building, 2.5);
+         // first roof
+         sphere(5.05,1.0,3.0,0.5  ,  0.5,0.5,0.5);
+         // second frame
+         cylinder(5.05, 1.05, 3.0, 0.45, 0.8 , modern_building, 2.2);
+         // second roof
+         sphere(5.05,1.85,3.0,0.45 , 0.45,0.30,0.45);
+         // third frame
+         cylinder(5.05, 1.90, 3.0, 0.35, 0.9 , modern_building, 2.2);
+         // third roof
+         sphere(5.05,2.80,3.0,0.35 , 0.35,0.20,0.35);
+         // fourth frame
+         cylinder(5.05, 2.85, 3.0, 0.25, 0.9 , modern_building, 2.2);
+         // fourth roof
+         sphere(5.05,3.70,3.0,0.35 , 0.35,0.05,0.35);
+         
+         
 
 
 
@@ -939,6 +1021,39 @@ void display()
          cubex(-3.55,3.01,3.0 , 0.655,0.01,0.805 , 0 , concrete_wall , concrete_wall , concrete_wall , concrete_wall , concrete_wall , concrete_wall, 3);
 
          /*
+            HOUSE 3 (3x2/4x2)
+         */
+         // first frame
+         house(3.2,0.3,3.0 , 0.4,0.3,0.75 , 0 , old_facade , old_facade , old_facade , old_facade , old_facade , tiles , tiles , tiles , tiles, 1.5);
+         // second frame
+         house2(3.0,0.9,2.5 , 0.3,0.9,0.3 , 0 , old_facade , old_facade , old_facade , old_facade , old_facade , 2);
+         // roof
+         cubex(3.0,1.81,2.5 , 0.305,0.01,0.305 , 0 , concrete_wall , concrete_wall , concrete_wall , concrete_wall , concrete_wall , concrete_wall, 3);
+
+         /*
+            HOUSE (1x2/2x2)
+         */
+         house2(2.3,2.0,3.3 , 0.4,2.0,0.4 , 0, cloud_window , cloud_window , cloud_window , cloud_window , cloud_window , 8);
+         // roof
+         cubex(2.3,4.01,3.3 , 0.405,0.01,0.405 , 0 , concrete_wall , concrete_wall , concrete_wall , concrete_wall , concrete_wall , concrete_wall, 3);
+
+         /*
+            HOUSE (1x2)
+         */
+         house2(1.7,1.0,3.2 , 0.35,1.0,0.35 , 0, glass_window , glass_window , glass_window , glass_window , glass_window , 8);
+         // roof
+         cubex(1.7,2.01,3.2 , 0.355,0.01,0.355 , 0 , concrete_wall , concrete_wall , concrete_wall , concrete_wall , concrete_wall , concrete_wall, 3);
+
+         /*
+            HOUSE (2x2/3/2)
+         */
+         house2(4.05,1.5,3.0 , 0.35,1.5,0.8 , 0, modern_building , modern_building , modern_building , modern_building , modern_building , 8);
+         // roof
+         cubex(4.05,3.01,3.0 , 0.355,0.01,0.805 , 0 , concrete_wall , concrete_wall , concrete_wall , concrete_wall , concrete_wall , concrete_wall, 3);
+
+
+
+         /*
             **************************** GROUND PLANE (TEXTURE NOT WORKING) *******************************************
          */
          // cubex(0.3,0.01,0.3 , 20.0,0.01,20.0 , 0 , ground , ground , ground , ground , ground , ground , 5);
@@ -956,7 +1071,7 @@ void display()
 
 
          // The the sun
-         sphere(1.0, 10.0, 1.0, 0.3);
+         sphere(1.0,10.0,1.0,0.3 , 0.3,0.3,0.3);
    //  Draw axes - no lighting from here on
    glDisable(GL_LIGHTING);
    glColor3f(1,1,1);
@@ -1186,6 +1301,8 @@ int main(int argc,char* argv[])
    building_wall = LoadTexBMP("building_wall.bmp");
    building_windows = LoadTexBMP("building_windows.bmp");
    modern_building = LoadTexBMP("modern_building.bmp");
+   cloud_window = LoadTexBMP("cloud_window.bmp");
+   old_facade = LoadTexBMP("old_facade.bmp"); 
 
    //  Pass control to GLUT so it can interact with the user
    ErrCheck("init");
