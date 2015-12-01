@@ -87,7 +87,37 @@ unsigned int simple_pavement;
 
 
 
-static void finalHouse1(float x, float z);
+static void building1(float x, float z);
+static void building2(float x, float z);
+static void building3(float x, float z);
+static void building4(float x, float z);
+static void building5(float x, float z);
+static void building6(float x, float z);
+static void building7(float x, float z);
+static void building8(float x, float z);
+static void building9(float x, float z);
+static void building10(float x, float z);
+static void building11(float x, float z);
+static void building12(float x, float z);
+static void building13(float x, float z);
+static void building14(float x, float z);
+static void building15(float x, float z);
+static void building16(float x, float z);
+static void building17(float x, float z);
+static void building18(float x, float z);
+static void building19(float x, float z);
+static void building20(float x, float z);
+static void building21(float x, float z);
+static void building22(float x, float z);
+static void building23(float x, float z);
+static void building24(float x, float z);
+static void building25(float x, float z);
+static void building26(float x, float z);
+static void building27(float x, float z);
+static void building28(float x, float z);
+static void building29(float x, float z);
+static void building30(float x, float z);
+
 
 // /*
 //  *  Draw a cube
@@ -866,190 +896,81 @@ void display()
 
          /* ********************************* ROW 1 OF BUILDINGS **********************************/  
 
-         /*
-            HOUSE (1x1/1x2)
-         */
-         // first frame
-         house(1.5,0.3,0.0 , 0.3,0.3,0.3 , 0 , walls , walls , walls , walls , walls , tiles , tiles , tiles , tiles, 3);
-         // second middle  frame
-         house(2.2,0.3,0.0 , 0.7,0.3,0.7 , 0 , walls , walls , walls , walls , walls , tiles , tiles , tiles , tiles, 3);
-         // third frame
-         house(2.9,0.3,0.0 , 0.5,0.3,0.5 , 0 , walls , walls , walls , walls , walls , tiles , tiles , tiles , tiles, 3);
+         // House
+         building1(1.5, 0.0);
+         building2(2.2, 0.0);
+         building3(2.9, 0.0);
 
-         /*
-            HOUSE (1x2)
-         */
-         // first frame
-         house2(3.2,1.1,-0.6 , 0.3,1.1,0.15 , 0 , glass_window , glass_window , glass_window , glass_window , glass_window , 3);
-         // flat roof
-         cubex(3.2,2.21,-0.6 , 0.305,0.01,0.155 , 0 , metal_grey , metal_grey , metal_grey , metal_grey , metal_grey , metal_grey, 3);
+         // House
+         building4(3.2,-0.6);
 
-         /*
-            HOUSE (1x2/1x3)
-         */
-         // first glass frame first level
-         house2(4.0,1.2,0.4 , 0.3,1.2,0.3 , 0 ,  glass_window, grey_brick_wall , glass_window , grey_brick_wall, grey_brick_wall, 6);
-         // second brick frame 
-         house2(4.6,1.2,0.25 , 0.3,1.2,0.3 , 0 , concrete_wall,  concrete_wall ,     concrete_wall ,  concrete_wall,    concrete_wall, 6);
-
+         // House
+         building5(4.0, 0.4);
+         building6(4.6, 0.25);
          // window panel
          cubex(4.9,1.2,0.4 , 0.002,1.2,0.1 , 0 , glass_window , glass_window , glass_window , glass_window , glass_window , glass_window, 3);
 
-         // flat roof
-         cubex(4.0,2.43,0.4 , 0.305,0.03,0.305 , 0 , metal_grey , metal_grey , metal_grey , metal_grey , metal_grey , metal_grey, 3);
-         cubex(4.6,2.43,0.25 , 0.305,0.03,0.305 , 0 , metal_grey , metal_grey , metal_grey , metal_grey , metal_grey , metal_grey, 3);
 
-         /*
-            HOUSE (1x2/1x3)
-         */
-         house2(4.5,0.8,-0.5 , 0.9,0.8,0.3 , 0, building_wall , building_wall , building_wall , building_wall , building_wall , 2);
-         // roof
-         cubex(4.5,1.61,-0.5 , 0.905,0.01,0.305 , 0 , concrete_wall , concrete_wall , concrete_wall , concrete_wall , concrete_wall , concrete_wall, 3);
-
-         /*
-            HOUSE -1 (1x1/-1x1)
-         */
-         // frame
-         house2(-0.3,0.5,0.0 , 1.0,0.5,0.8 , 0, glass_window, glass_window , glass_window , glass_window, glass_window, 3);
-         // roof
-         cubex(-0.3,1.05,0.0 , 1.005,0.05,0.805 , 0 , metal_grey , metal_grey , metal_grey , metal_grey , metal_grey , ground, 3);
-         // frame
-         house2(-0.3,1.1,0.0 , 0.80,1.0,0.60 , 0, glass_window, glass_window , glass_window , glass_window, glass_window, 3);
-         // roof
-         cubex(-0.3,2.2,0.0 , 0.805,0.1,0.605 , 0 , metal_grey , metal_grey , metal_grey , metal_grey , metal_grey , ground, 3);
-
-         /*
-            HOUSE -2 (-1x1)
-         */
-         house(-1.8,0.3,0.5 , 0.3,0.3,0.4 , 0, glass_window , red_wall , red_wall , red_wall , red_wall , grey_roof , grey_roof , grey_roof , grey_roof, 3);
-
-         /*
-            HOUSE -3 (-1x1/-2x1)
-         */
-         house2(-1.9,0.4,-0.5 , 0.5,0.4,0.4 , 0, red_wall , red_wall , red_wall , red_wall , red_wall , 3);
-         // flat roof
-         cubex(-1.9,0.81,-0.5 , 0.51,0.01,0.41 , 0 , metal_grey , metal_grey , metal_grey , metal_grey , metal_grey , metal_grey, 3);
-
-         /*
-            HOUSE -4 (-2x1/-3x1)
-         */
-         // first frame
-         house2(-3.3,0.4,0.0 , 0.8,0.4,0.6 , 0, building_wall , building_wall , building_wall , building_wall , building_wall , 2);
-         // flat roof
-         cubex(-3.3,0.81,0.0 , 0.805,0.01,0.605 , 0 , concrete_wall , concrete_wall , concrete_wall , concrete_wall , concrete_wall , concrete_wall, 3);
-         // second frame
-         house2(-3.3,1.22,0.0 , 0.75,0.4,0.55 , 0, building_wall , building_wall , building_wall , building_wall , building_wall , 2);
-         // second roof
-         cubex(-3.3,1.63,0.0 , 0.755,0.01,0.610 , 0 , concrete_wall , concrete_wall , concrete_wall , concrete_wall , concrete_wall , concrete_wall, 3);
-         // third frame
-         house2(-3.3,2.04,0.0 , 0.60,0.4,0.40 , 0, building_wall , building_wall , building_wall , building_wall , building_wall , 2);
-         // third roof
-         cubex(-3.3,2.45,0.0 , 0.605,0.01,0.405 , 0 , concrete_wall , concrete_wall , concrete_wall , concrete_wall , concrete_wall , concrete_wall, 3);
-         // fourth frame
-         house2(-3.3,2.84,0.0 , 0.45,0.4,0.25 , 0, building_wall , building_wall , building_wall , building_wall , building_wall , 2);
-         // fourth roof
-         cubex(-3.3,3.25,0.0 , 0.455,0.01,0.255 , 0 , concrete_wall , concrete_wall , concrete_wall , concrete_wall , concrete_wall , concrete_wall, 3);
-
-         /*
-            HOUSE -4 (3x2)
-         */
-         // first frame
-         cylinder(5.05, 0, 3.0, 0.5,  1.0 , modern_building, 2.5);
-         // first roof
-         sphere(5.05,1.0,3.0,0.5  ,  0.5,0.5,0.5);
-         // second frame
-         cylinder(5.05, 1.05, 3.0, 0.45, 0.8 , modern_building, 2.2);
-         // second roof
-         sphere(5.05,1.85,3.0,0.45 , 0.45,0.30,0.45);
-         // third frame
-         cylinder(5.05, 1.90, 3.0, 0.35, 0.9 , modern_building, 2.2);
-         // third roof
-         sphere(5.05,2.80,3.0,0.35 , 0.35,0.20,0.35);
-         // fourth frame
-         cylinder(5.05, 2.85, 3.0, 0.25, 0.9 , modern_building, 2.2);
-         // fourth roof
-         sphere(5.05,3.70,3.0,0.35 , 0.35,0.05,0.35);
+         // House
+         building7(4.5,-0.5);
          
+         // House 
+         building8(-0.3,0.0);
+         building9(-0.3,0.0);
          
+         // House
+         building10(-1.8, 0.5);
+         
+         // House
+         building11(-1.9,-0.5);
+         
+         // Building
+         building12(-3.3,0.0);
+         building13(-3.3,0.0);
+         building14(-3.3,0.0);
+         building15(-3.3,0.0);
 
+         // House
+         building27(5.05,3.0);
+         building28(5.05,3.0);
+         building29(5.05,3.0);
+         building30(5.05,3.0);
 
 
          /* ********************************* ROW 2 OF BUILDINGS **********************************/ 
 
-         /*
-            HOUSE -5 (1x2/-1x2)
-         */
-         // house2(0.0,1.3,2.5 , 0.6,1.3,0.4 , 0, building_wall , building_wall , building_wall , building_wall , building_wall , 2);
-         // // roof
-         // cubex(0.0,2.61,2.5 , 0.605,0.01,0.405 , 0 , concrete_wall , concrete_wall , concrete_wall , concrete_wall , concrete_wall , concrete_wall, 3);
-
-         finalHouse1(0,2.5);
-         finalHouse1(2,2.5);
-         /* 
-            HOUSE -6 (1x2/-1x2)
-         */
-         house2(-0.2,1.1,3.4 , 0.8,1.1,0.5 , 0, building_wall , building_wall , building_wall , building_wall , building_wall , 2);
-         //  roof
-         cubex(-0.2,2.21,3.4 , 0.805,0.01,0.505 , 0 , concrete_wall , concrete_wall , concrete_wall , concrete_wall , concrete_wall , concrete_wall, 3);
-
-         /*
-            HOUSE -7 (-1x2)
-         */
-         house2(-1.4,1.2,3.0 , 0.25,1.2,0.5 , 0, building_windows , building_windows , building_windows , building_windows , building_windows , 3.2);
-         // roof
-         cubex(-1.4,2.41,3.0 , 0.255,0.01,0.505 , 0 , concrete_wall , concrete_wall , concrete_wall , concrete_wall , concrete_wall , concrete_wall, 3);
-
-         /*
-            HOUSE -5 (-1x2/-2x2)
-         */
-         house2(-2.2,1.0,2.5 , 0.6,1.0,0.2 , 0, building_windows , building_windows , building_windows , building_windows , building_windows , 2.8);
-         // roof
-         cubex(-2.2,2.01,2.5 , 0.605,0.01,0.205 , 0 , concrete_wall , concrete_wall , concrete_wall , concrete_wall , concrete_wall , concrete_wall, 3);
-
-         /*
-            HOUSE -6 (-1x2/-2x2)
-         */
-         house2(-2.2,1.0,3.4 , 0.6,1.0,0.2 , 0, building_windows , building_windows , building_windows , building_windows , building_windows , 2.8);
-         // roof
-         cubex(-2.2,2.01,3.4 , 0.605,0.01,0.205 , 0 , concrete_wall , concrete_wall , concrete_wall , concrete_wall , concrete_wall , concrete_wall, 3);
-
-         /*
-            HOUSE -5 (-2x2/-3x2)
-         */
-         house2(-3.55,1.5,3.0 , 0.65,1.5,0.8 , 0, modern_building , modern_building , modern_building , modern_building , modern_building , 5);
-         // roof
-         cubex(-3.55,3.01,3.0 , 0.655,0.01,0.805 , 0 , concrete_wall , concrete_wall , concrete_wall , concrete_wall , concrete_wall , concrete_wall, 3);
-
-         /*
-            HOUSE 3 (3x2/4x2)
-         */
-         // first frame
-         house(3.2,0.3,3.0 , 0.4,0.3,0.75 , 0 , old_facade , old_facade , old_facade , old_facade , old_facade , tiles , tiles , tiles , tiles, 1.5);
-         // second frame
-         house2(3.0,0.9,2.5 , 0.3,0.9,0.3 , 0 , old_facade , old_facade , old_facade , old_facade , old_facade , 2);
-         // roof
-         cubex(3.0,1.81,2.5 , 0.305,0.01,0.305 , 0 , concrete_wall , concrete_wall , concrete_wall , concrete_wall , concrete_wall , concrete_wall, 3);
-
-         /*
-            HOUSE (1x2/2x2)
-         */
-         house2(2.3,2.0,3.3 , 0.4,2.0,0.4 , 0, cloud_window , cloud_window , cloud_window , cloud_window , cloud_window , 8);
-         // roof
-         cubex(2.3,4.01,3.3 , 0.405,0.01,0.405 , 0 , concrete_wall , concrete_wall , concrete_wall , concrete_wall , concrete_wall , concrete_wall, 3);
-
-         /*
-            HOUSE (1x2)
-         */
-         house2(1.7,1.0,3.2 , 0.35,1.0,0.35 , 0, glass_window , glass_window , glass_window , glass_window , glass_window , 8);
-         // roof
-         cubex(1.7,2.01,3.2 , 0.355,0.01,0.355 , 0 , concrete_wall , concrete_wall , concrete_wall , concrete_wall , concrete_wall , concrete_wall, 3);
-
-         /*
-            HOUSE (2x2/3/2)
-         */
-         house2(4.05,1.5,3.0 , 0.35,1.5,0.8 , 0, modern_building , modern_building , modern_building , modern_building , modern_building , 8);
-         // roof
-         cubex(4.05,3.01,3.0 , 0.355,0.01,0.805 , 0 , concrete_wall , concrete_wall , concrete_wall , concrete_wall , concrete_wall , concrete_wall, 3);
+         // House
+         building16(0,2.5);
+         building16(2,2.5);
+         
+         // House
+         building17(-0.2,3.4);
+         
+         // House
+         building18(-1.4,3.0);
+         
+         // House
+         building19(-2.2,2.5);
+         
+         // House
+         building20(-2.2,3.4);
+         
+         // House
+         building21(-3.55,3.0);
+         
+         // House
+         building22(3.2,3.0);
+         building23(3.0,2.5);
+         
+         // House
+         building24(2.3,3.3);
+         
+         // House
+         building25(1.7,3.2);
+         
+         // House
+         building26(4.05,3.0);
+         
 
 
 
@@ -1061,13 +982,6 @@ void display()
          // house(3.6,0.3,0.0 , 0.3,0.3,0.3 , 0, 0);
 
          // house(4.3,0.3,0.0 , 0.3,0.3,0.3 , 0, 0);
-
-
-
-
-
-
-
 
 
          // The the sun
@@ -1096,7 +1010,7 @@ void display()
    glPopMatrix();
    //  Display parameters
    glWindowPos2i(5,5);
-   if (proj_mode == 2) Print("Angle=%d,%d  Dim=%.1f FOV=%d Projection= First Person View",th,ph,dim,fov);
+   if (proj_mode == 2) Print("Angle=%d,%d  Dim=%.1f FOV=%d Proection= First Person View",th,ph,dim,fov);
    else Print("Angle=%d,%d  Dim=%.1f FOV=%d Projection=%s",th,ph,dim,fov,mode?"Perpective":"Orthogonal");
 
    //  Render the scene and make it visible
@@ -1105,9 +1019,163 @@ void display()
 }
 
 
+/************************************************************** BUILDINGS FACTORY  *************************************************************/
 
+static void building1(float x, float z){
 
-static void finalHouse1(float x, float z){
+   glPushMatrix();
+   glTranslated(x,0,z);
+   // first frame
+   house(0.0,0.3,0.0 , 0.3,0.3,0.3 , 0 , walls , walls , walls , walls , walls , tiles , tiles , tiles , tiles, 3);
+   glPopMatrix();
+}
+
+static void building2(float x, float z){
+
+   glPushMatrix();
+   glTranslated(x,0,z);
+   // second frame
+   house(0.0,0.3,0.0 , 0.7,0.3,0.7 , 0 , walls , walls , walls , walls , walls , tiles , tiles , tiles , tiles, 3);
+   glPopMatrix();
+}
+
+static void building3(float x, float z){
+
+   glPushMatrix();
+   glTranslated(x,0,z);
+   // third frame
+   house(0.0,0.3,0.0 , 0.5,0.3,0.5 , 0 , walls , walls , walls , walls , walls , tiles , tiles , tiles , tiles, 3);     
+   glPopMatrix();
+}
+
+static void building4(float x, float z){
+
+   glPushMatrix();
+   glTranslated(x,0,z);
+   house2(0,1.1,0 , 0.3,1.1,0.15 , 0 , glass_window , glass_window , glass_window , glass_window , glass_window , 3);
+   // flat roof
+   cubex(0,2.21,0 , 0.305,0.01,0.155 , 0 , metal_grey , metal_grey , metal_grey , metal_grey , metal_grey , metal_grey, 3);     
+   glPopMatrix();
+}
+
+static void building5(float x, float z){
+
+   glPushMatrix();
+   glTranslated(x,0,z);
+   // first glass frame first level
+   house2(0,1.2,0 , 0.3,1.2,0.3 , 0 ,  glass_window, grey_brick_wall , glass_window , grey_brick_wall, grey_brick_wall, 6);
+   // flat roof
+   cubex(0,2.43,0 , 0.305,0.03,0.305 , 0 , metal_grey , metal_grey , metal_grey , metal_grey , metal_grey , metal_grey, 3);     
+
+   glPopMatrix();
+}
+
+static void building6(float x, float z){
+
+   glPushMatrix();
+   glTranslated(x,0,z);
+   // second brick frame 
+   house2(0,1.2,0 , 0.3,1.2,0.3 , 0 , concrete_wall,  concrete_wall ,     concrete_wall ,  concrete_wall,    concrete_wall, 6);
+   // flat roof
+   cubex(0,2.43,0 , 0.305,0.03,0.305 , 0 , metal_grey , metal_grey , metal_grey , metal_grey , metal_grey , metal_grey, 3);    
+   glPopMatrix();
+}
+
+static void building7(float x, float z){
+
+   glPushMatrix();
+   glTranslated(x,0,z);
+   house2(0,0.8,0 , 0.9,0.8,0.3 , 0, building_wall , building_wall , building_wall , building_wall , building_wall , 2);
+   // roof
+   cubex(0,1.61,0 , 0.905,0.01,0.305 , 0 , concrete_wall , concrete_wall , concrete_wall , concrete_wall , concrete_wall , concrete_wall, 3);     
+   glPopMatrix();
+}
+
+static void building8(float x, float z){
+
+   glPushMatrix();
+   glTranslated(x,0,z);
+   // frame
+   house2(0,0.5,0 , 1.0,0.5,0.8 , 0, glass_window, glass_window , glass_window , glass_window, glass_window, 3);
+   // roof
+   cubex(0,1.05,0 , 1.005,0.05,0.805 , 0 , metal_grey , metal_grey , metal_grey , metal_grey , metal_grey , ground, 3);     
+glPopMatrix();
+}
+
+static void building9(float x, float z){
+
+   glPushMatrix();
+   glTranslated(x,0,z);
+   // frame
+   house2(0,1.1,0 , 0.80,1.0,0.60 , 0, glass_window, glass_window , glass_window , glass_window, glass_window, 3);
+   // roof
+   cubex(0,2.2,0 , 0.805,0.1,0.605 , 0 , metal_grey , metal_grey , metal_grey , metal_grey , metal_grey , ground, 3);     
+   glPopMatrix();
+}
+
+static void building10(float x, float z){
+
+   glPushMatrix();
+   glTranslated(x,0,z);
+   house(0,0.3,0 , 0.3,0.3,0.4 , 0, glass_window , red_wall , red_wall , red_wall , red_wall , grey_roof , grey_roof , grey_roof , grey_roof, 3);    
+   glPopMatrix();
+}
+
+static void building11(float x, float z){
+
+   glPushMatrix();
+   glTranslated(x,0,z);
+   house2(0,0.4,0 , 0.5,0.4,0.4 , 0, red_wall , red_wall , red_wall , red_wall , red_wall , 3);
+   // flat roof
+   cubex(0,0.81,0 , 0.51,0.01,0.41 , 0 , metal_grey , metal_grey , metal_grey , metal_grey , metal_grey , metal_grey, 3);    
+   glPopMatrix();
+}
+
+static void building12(float x, float z){
+
+   glPushMatrix();
+   glTranslated(x,0,z);
+   // first frame
+   house2(0,0.4,0 , 0.8,0.4,0.6 , 0, building_wall , building_wall , building_wall , building_wall , building_wall , 2);
+   // flat roof
+   cubex(0,0.81,0 , 0.805,0.01,0.605 , 0 , concrete_wall , concrete_wall , concrete_wall , concrete_wall , concrete_wall , concrete_wall, 3);    
+   glPopMatrix();
+}
+
+static void building13(float x, float z){
+
+   glPushMatrix();
+   glTranslated(x,0,z);
+   // second frame
+   house2(0,1.22,0 , 0.75,0.4,0.55 , 0, building_wall , building_wall , building_wall , building_wall , building_wall , 2);
+   // second roof
+   cubex(0,1.63,0 , 0.755,0.01,0.610 , 0 , concrete_wall , concrete_wall , concrete_wall , concrete_wall , concrete_wall , concrete_wall, 3);   
+   glPopMatrix();
+}
+
+static void building14(float x, float z){
+
+   glPushMatrix();
+   glTranslated(x,0,z);
+   // third frame
+   house2(0,2.04,0 , 0.60,0.4,0.40 , 0, building_wall , building_wall , building_wall , building_wall , building_wall , 2);
+   // third roof
+   cubex(0,2.45,0 , 0.605,0.01,0.405 , 0 , concrete_wall , concrete_wall , concrete_wall , concrete_wall , concrete_wall , concrete_wall, 3); 
+   glPopMatrix();
+}
+
+static void building15(float x, float z){
+
+   glPushMatrix();
+   glTranslated(x,0,z);
+   // fourth frame
+   house2(0,2.84,0 , 0.45,0.4,0.25 , 0, building_wall , building_wall , building_wall , building_wall , building_wall , 2);
+   // fourth roof
+   cubex(0,3.25,0 , 0.455,0.01,0.255 , 0 , concrete_wall , concrete_wall , concrete_wall , concrete_wall , concrete_wall , concrete_wall, 3);     
+   glPopMatrix();
+}
+
+static void building16(float x, float z){
 
    glPushMatrix();
    glTranslated(x,0,z);
@@ -1116,7 +1184,152 @@ static void finalHouse1(float x, float z){
    glPopMatrix();
 }
 
+static void building17(float x, float z){
 
+   glPushMatrix();
+   glTranslated(x,0,z);
+   house2(0,1.1,0 , 0.8,1.1,0.5 , 0, building_wall , building_wall , building_wall , building_wall , building_wall , 2);
+   //  roof
+   cubex(0,2.21,0 , 0.805,0.01,0.505 , 0 , concrete_wall , concrete_wall , concrete_wall , concrete_wall , concrete_wall , concrete_wall, 3);     
+   glPopMatrix();
+}
+
+static void building18(float x, float z){
+
+   glPushMatrix();
+   glTranslated(x,0,z);
+   house2(0,1.2,0 , 0.25,1.2,0.5 , 0, building_windows , building_windows , building_windows , building_windows , building_windows , 3.2);
+   // roof
+   cubex(0,2.41,0 , 0.255,0.01,0.505 , 0 , concrete_wall , concrete_wall , concrete_wall , concrete_wall , concrete_wall , concrete_wall, 3);     
+   glPopMatrix();
+}
+
+static void building19(float x, float z){
+
+   glPushMatrix();
+   glTranslated(x,0,z);
+   house2(0,1.0,0 , 0.6,1.0,0.2 , 0, building_windows , building_windows , building_windows , building_windows , building_windows , 2.8);
+   // roof
+   cubex(0,2.01,0 , 0.605,0.01,0.205 , 0 , concrete_wall , concrete_wall , concrete_wall , concrete_wall , concrete_wall , concrete_wall, 3);    
+   glPopMatrix();
+}
+
+static void building20(float x, float z){
+
+   glPushMatrix();
+   glTranslated(x,0,z);
+   house2(0,1.0,0 , 0.6,1.0,0.2 , 0, building_windows , building_windows , building_windows , building_windows , building_windows , 2.8);
+   // roof
+   cubex(0,2.01,0 , 0.605,0.01,0.205 , 0 , concrete_wall , concrete_wall , concrete_wall , concrete_wall , concrete_wall , concrete_wall, 3);  
+   glPopMatrix();
+}
+
+static void building21(float x, float z){
+
+   glPushMatrix();
+   glTranslated(x,0,z);
+   house2(0,1.5,0 , 0.65,1.5,0.8 , 0, modern_building , modern_building , modern_building , modern_building , modern_building , 5);
+   // roof
+   cubex(0,3.01,0 , 0.655,0.01,0.805 , 0 , concrete_wall , concrete_wall , concrete_wall , concrete_wall , concrete_wall , concrete_wall, 3);   
+   glPopMatrix();
+}
+
+static void building22(float x, float z){
+
+   glPushMatrix();
+   glTranslated(x,0,z);
+   // first frame
+   house(0,0.3,0 , 0.4,0.3,0.75 , 0 , old_facade , old_facade , old_facade , old_facade , old_facade , tiles , tiles , tiles , tiles, 1.5);
+   glPopMatrix();
+}
+
+static void building23(float x, float z){
+
+   glPushMatrix();
+   glTranslated(x,0,z);
+   // second frame
+   house2(0,0.9,0 , 0.3,0.9,0.3 , 0 , old_facade , old_facade , old_facade , old_facade , old_facade , 2);
+   // roof
+   cubex(0,1.81,0 , 0.305,0.01,0.305 , 0 , concrete_wall , concrete_wall , concrete_wall , concrete_wall , concrete_wall , concrete_wall, 3);    
+   glPopMatrix();
+}
+
+static void building24(float x, float z){
+
+   glPushMatrix();
+   glTranslated(x,0,z);
+   house2(0,2.0,0 , 0.4,2.0,0.4 , 0, cloud_window , cloud_window , cloud_window , cloud_window , cloud_window , 8);
+   // roof
+   cubex(0,4.01,0 , 0.405,0.01,0.405 , 0 , concrete_wall , concrete_wall , concrete_wall , concrete_wall , concrete_wall , concrete_wall, 3); 
+   glPopMatrix();
+}
+
+static void building25(float x, float z){
+
+   glPushMatrix();
+   glTranslated(x,0,z);
+   house2(0,1.0,0 , 0.35,1.0,0.35 , 0, glass_window , glass_window , glass_window , glass_window , glass_window , 8);
+   // roof
+   cubex(0,2.01,0 , 0.355,0.01,0.355 , 0 , concrete_wall , concrete_wall , concrete_wall , concrete_wall , concrete_wall , concrete_wall, 3);   
+   glPopMatrix();
+}
+
+static void building26(float x, float z){
+
+   glPushMatrix();
+   glTranslated(x,0,z);
+   house2(0,1.5,0 , 0.35,1.5,0.8 , 0, modern_building , modern_building , modern_building , modern_building , modern_building , 8);
+   // roof
+   cubex(0,3.01,0 , 0.355,0.01,0.805 , 0 , concrete_wall , concrete_wall , concrete_wall , concrete_wall , concrete_wall , concrete_wall, 3); 
+   glPopMatrix();
+}
+
+static void building27(float x, float z){
+
+   glPushMatrix();
+   glTranslated(x,0,z);
+   // first frame
+   cylinder(0,0,0 , 0.5,  1.0 , modern_building, 2.5);
+   // first roof
+   sphere(0,1.0,0 , 0.5  ,  0.5,0.5,0.5);
+   glPopMatrix();
+}
+
+static void building28(float x, float z){
+
+   glPushMatrix();
+   glTranslated(x,0,z);
+   // second frame
+   cylinder(0,1.05,0 , 0.45, 0.8 , modern_building, 2.2);
+   // second roof
+   sphere(0,1.85,0 , 0.45 , 0.45,0.30,0.45);
+   glPopMatrix();
+}
+
+static void building29(float x, float z){
+
+   glPushMatrix();
+   glTranslated(x,0,z);
+   // third frame
+   cylinder(0,1.90,0 , 0.35, 0.9 , modern_building, 2.2);
+   // third roof
+   sphere(0,2.80,0 , 0.35 , 0.35,0.20,0.35);
+   glPopMatrix();
+}
+
+static void building30(float x, float z){
+
+   glPushMatrix();
+   glTranslated(x,0,z);
+   // fourth frame
+   cylinder(0,2.85,0 , 0.25, 0.9 , modern_building, 2.2);
+   // fourth roof
+   sphere(0,3.70,0 , 0.35 , 0.35,0.05,0.35);
+   glPopMatrix();
+}
+
+
+/**************************************************************************************************************************************************/
 
 /*
  *  GLUT calls this routine when the window is resized
