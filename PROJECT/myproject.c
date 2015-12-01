@@ -892,45 +892,43 @@ void display()
          cubex(0.0,-0.1,3.0 , 7.0,0.1,1.0 , 0 , ground , ground , ground , ground , simple_pavement , ground, 20);
 
 
-
-
          /* ********************************* ROW 1 OF BUILDINGS **********************************/  
 
-         // House
+         // Low city hall
          building1(1.5, 0.0);
          building2(2.2, 0.0);
          building3(2.9, 0.0);
 
-         // House
+         // High glass office building
          building4(3.2,-0.6);
 
-         // House
+         // High glass and metal apartment building 
          building5(4.0, 0.4);
          building6(4.6, 0.25);
          // window panel
          cubex(4.9,1.2,0.4 , 0.002,1.2,0.1 , 0 , glass_window , glass_window , glass_window , glass_window , glass_window , glass_window, 3);
 
 
-         // House
+         // Medium apartment building
          building7(4.5,-0.5);
          
-         // House 
+         // High glas office building 
          building8(-0.3,0.0);
          building9(-0.3,0.0);
          
-         // House
+         // Apartments house
          building10(-1.8, 0.5);
          
-         // House
+         // Appartments house
          building11(-1.9,-0.5);
          
-         // Building
+         // Very high shopping mall
          building12(-3.3,0.0);
          building13(-3.3,0.0);
          building14(-3.3,0.0);
          building15(-3.3,0.0);
 
-         // House
+         // High round glass office building
          building27(5.05,3.0);
          building28(5.05,3.0);
          building29(5.05,3.0);
@@ -939,36 +937,37 @@ void display()
 
          /* ********************************* ROW 2 OF BUILDINGS **********************************/ 
 
-         // House
+         // High Office building
          building16(0,2.5);
          building16(2,2.5);
          
-         // House
+         // High Office building
          building17(-0.2,3.4);
          
-         // House
+         // Tripler library buildings
+         // High skinny library building
          building18(-1.4,3.0);
          
-         // House
+         // High skinny library building
          building19(-2.2,2.5);
          
-         // House
+         // High skinny library building
          building20(-2.2,3.4);
          
-         // House
+         // Medium old school building
          building21(-3.55,3.0);
          
-         // House
+         // High bulky apartment building
          building22(3.2,3.0);
          building23(3.0,2.5);
          
-         // House
+         // Highest office building
          building24(2.3,3.3);
          
-         // House
+         // High glass office building
          building25(1.7,3.2);
          
-         // House
+         // Very high long office building
          building26(4.05,3.0);
          
 
