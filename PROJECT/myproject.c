@@ -2,7 +2,7 @@
  *  Final Project
  *
  *  Used class exemple 8, 9, 13 and 15 to help
- *  Was helped by Zhihao 
+ *
  * 
  *  Key bindings:
  *  m          Modes (orthogonal, perspective, first person navigation)
@@ -35,7 +35,7 @@ int th=0;         //  Azimuth of view angle
 int ph=0;         //  Elevation of view angle
 int fov=55;       //  Field of view (for perspective)
 double asp=1;     //  Aspect ratio
-double dim=8.0;   //  Size of world
+double dim=10.0;   //  Size of world
 int new_angle = 0;
 int light=1;      //  Lighting
 double moveX = 0.0;
@@ -78,12 +78,17 @@ unsigned int roof_wood_texture;
 unsigned int tiles;
 unsigned int grey_roof;
 unsigned int metal_grey;
+unsigned int building_top;
 
 // ground textures
 unsigned int stone_ground;
 unsigned int roadway_lines;
 unsigned int pavement_coffee;
 unsigned int simple_pavement;
+
+// grid
+int key_x = 15;
+int key_z = 3;
 
 
 
@@ -215,7 +220,8 @@ static void cubex(double x,double y,double z,
                   int left_texture,
                   int top_texture,
                   int bottom_texture,
-                  double rep)
+                  double rep,
+                  double myR, double myG, double myB)
 {
    //  Set specular color to white
    float white[] = {1,1,1,1};
@@ -232,7 +238,7 @@ static void cubex(double x,double y,double z,
    //  Enable textures
    glEnable(GL_TEXTURE_2D);
    glTexEnvi(GL_TEXTURE_ENV,GL_TEXTURE_ENV_MODE,tmode?GL_REPLACE:GL_MODULATE);
-   glColor3f(1,1,1);
+   glColor3f(myR,myG,myB);
    //  Front
    glBindTexture(GL_TEXTURE_2D,front_texture);
    glBegin(GL_QUADS);
@@ -303,7 +309,8 @@ static void cubey(double x,double y,double z,
                   int left_texture,
                   int top_texture,
                   int bottom_texture,
-                  double rep)
+                  double rep,
+                  double myR, double myG, double myB)
 {
    //  Set specular color to white
    float white[] = {1,1,1,1};
@@ -320,7 +327,7 @@ static void cubey(double x,double y,double z,
    //  Enable textures
    glEnable(GL_TEXTURE_2D);
    glTexEnvi(GL_TEXTURE_ENV,GL_TEXTURE_ENV_MODE,tmode?GL_REPLACE:GL_MODULATE);
-   glColor3f(1,1,1);
+   glColor3f(myR,myG,myB);
    //  Front
    glBindTexture(GL_TEXTURE_2D,front_texture);
    glBegin(GL_QUADS);
@@ -803,58 +810,58 @@ void display()
             FENCE WALLS ON X
          */
          // x = -8
-         cubex(-8.0,0.05,0.0 , 0.01,0.05,10 , 0 , ground , ground , ground , ground , ground , ground, 1);
+         cubex(-8.0,0.05,0.0 , 0.01,0.05,10 , 0 , ground , ground , ground , ground , ground , ground, 1 , 1,1,1);
 
          // x = -6
-         cubex(-6.0,0.05,0.0 , 0.01,0.05,10 , 0 , ground , ground , ground , ground , ground , ground, 1);
+         cubex(-6.0,0.05,0.0 , 0.01,0.05,10 , 0 , ground , ground , ground , ground , ground , ground, 1 , 1,1,1);
 
          // x = -4
-         cubex(-4.0,0.05,0.0 , 0.01,0.05,10 , 0 , ground , ground , ground , ground , ground , ground, 1);
+         cubex(-4.0,0.05,0.0 , 0.01,0.05,10 , 0 , ground , ground , ground , ground , ground , ground, 1 , 1,1,1);
 
          // x = -2
-         cubex(-2.0,0.05,0.0 , 0.01,0.05,10 , 0 , ground , ground , ground , ground , ground , ground, 1);
+         cubex(-2.0,0.05,0.0 , 0.01,0.05,10 , 0 , ground , ground , ground , ground , ground , ground, 1 , 1,1,1);
 
          // x = 0
-         cubex(0.0,0.2,0.0 , 0.01,0.2,10 , 0 , ground , ground , ground , ground , ground , ground, 1);
+         cubex(0.0,0.2,0.0 , 0.01,0.2,10 , 0 , ground , ground , ground , ground , ground , ground, 1 , 1,1,1);
 
          // x = 2
-         cubex(2.0,0.05,0.0 , 0.01,0.05,10 , 0 , ground , ground , ground , ground , ground , ground, 1);
+         cubex(2.0,0.05,0.0 , 0.01,0.05,10 , 0 , ground , ground , ground , ground , ground , ground, 1 , 1,1,1);
 
          // x = 4
-         cubex(4.0,0.05,0.0 , 0.01,0.05,10 , 0 , ground , ground , ground , ground , ground , ground, 1);
+         cubex(4.0,0.05,0.0 , 0.01,0.05,10 , 0 , ground , ground , ground , ground , ground , ground, 1 , 1,1,1);
 
          // x = 6
-         cubex(6.0,0.05,0.0 , 0.01,0.05,10 , 0 , ground , ground , ground , ground , ground , ground, 1);
+         cubex(6.0,0.05,0.0 , 0.01,0.05,10 , 0 , ground , ground , ground , ground , ground , ground, 1 , 1,1,1);
 
          // x = 8
-         cubex(8.0,0.05,0.0 , 0.01,0.05,10 , 0 , ground , ground , ground , ground , ground , ground, 1);
+         cubex(8.0,0.05,0.0 , 0.01,0.05,10 , 0 , ground , ground , ground , ground , ground , ground, 1 , 1,1,1);
 
          /*
             FENCE WALLS ON z
          */
          // x = -4
-         cubex(0.0,0.2,-4.0 , 10,0.05,0.005 , 0 , ground , ground , ground , ground , ground , ground, 1);
+         cubex(0.0,0.2,-4.0 , 10,0.05,0.005 , 0 , ground , ground , ground , ground , ground , ground, 1 , 1,1,1);
 
          // x = -2
-         cubex(0.0,0.05,-2.0 , 10,0.05,0.005 , 0 , ground , ground , ground , ground , ground , ground, 1);
+         cubex(0.0,0.0025,-2.0 , 10,0.0025,0.005 , 0 , ground , ground , ground , ground , ground , ground, 1 , 1,1,1);
 
          // x = -1
-         cubex(0.0,0.05,-1.0 , 10,0.05,0.005 , 0 , ground , ground , ground , ground , ground , ground, 1);
+         cubex(0.0,0.0025,-1.0 , 10,0.0025,0.005 , 0 , ground , ground , ground , ground , ground , ground, 1 , 1,1,1);
 
          // z = 1
-         cubex(0.0,0.05,+1.0 , 10,0.05,0.005 , 0 , ground , ground , ground , ground , ground , ground, 1);
+         cubex(0.0,0.0025,+1.0 , 10,0.0025,0.005 , 0 , ground , ground , ground , ground , ground , ground, 1 , 1,1,1);
 
          // x = 2
-         cubex(0.0,0.05,+2.0 , 10,0.05,0.005 , 0 , ground , ground , ground , ground , ground , ground, 1);
+         cubex(0.0,0.0025,+2.0 , 10,0.0025,0.005 , 0 , ground , ground , ground , ground , ground , ground, 1 , 1,1,1);
 
          // x = 4
-         cubex(0.0,0.05,+4.0 , 10,0.05,0.005 , 0 , ground , ground , ground , ground , ground , ground, 1);
+         cubex(0.0,0.0025,+4.0 , 10,0.0025,0.005 , 0 , ground , ground , ground , ground , ground , ground, 1 , 1,1,1);
 
          // x = 5
-         cubex(0.0,0.05,+5.0 , 10,0.05,0.005 , 0 , ground , ground , ground , ground , ground , ground, 1);
+         cubex(0.0,0.0025,+5.0 , 10,0.0025,0.005 , 0 , ground , ground , ground , ground , ground , ground, 1 , 1,1,1);
 
          // x = 7
-         cubex(0.0,0.05,+7.0 , 10,0.05,0.005 , 0 , ground , ground , ground , ground , ground , ground, 1);
+         cubex(0.0,0.0025,+7.0 , 10,0.0025,0.005 , 0 , ground , ground , ground , ground , ground , ground, 1 , 1,1,1);
 
          
          /* ********************************* STREET 1  ******************************************/ 
@@ -862,42 +869,44 @@ void display()
          /*********** ON Z ***********/
 
          // road 1 on z
-         cubex(0.0,0.0,-1.5 , 6.0,0.0,0.5 , 0 , ground , ground , ground , ground , ground , ground, 4);
+         cubex(0.0,0.0,-1.5 , 6.0,0.0,0.5 , 0 , ground , ground , ground , ground , ground , ground, 4 , 0.5,0.5,0.5);
 
          // road 2 on z
-         cubex(0.0,0.0,1.5 , 6.0,0.0,0.5 , 0 , ground , ground , ground , ground , ground , ground, 4);
+         cubex(0.0,0.0,1.5 , 6.0,0.0,0.5 , 0 , ground , ground , ground , ground , ground , ground, 4 , 0.5,0.5,0.5);
 
          // road 2 on z
-         cubex(0.0,0.0,4.5 , 6.0,0.0,0.5 , 0 , ground , ground , ground , ground , ground , ground, 4);
+         cubex(0.0,0.0,4.5 , 6.0,0.0,0.5 , 0 , ground , ground , ground , ground , ground , ground, 4 , 0.5,0.5,0.5);
 
          /*********** ON X ***********/
          // road 1 on x
-         cubey(-4.8,0.002,-1.5 , 0.5,0.002,6.0 , 0 , ground , ground , ground , ground , ground , ground, 4);
+         cubey(-4.8,0.002,-1.5 , 0.5,0.002,6.0 , 0 , ground , ground , ground , ground , ground , ground, 4 , 0.5,0.5,0.5);
 
          // road 1 on x
-         cubey(6.2,0.002,-1.5 , 0.5,0.002,6.0 , 0 , ground , ground , ground , ground , ground , ground, 4);
+         cubey(6.2,0.002,-1.5 , 0.5,0.002,6.0 , 0 , ground , ground , ground , ground , ground , ground, 4 , 0.5,0.5,0.5);
 
          // walk way 1
-         cubex(0.95,0.002,0.0 , 0.2,0.002,1.0 , 0 , ground , ground , ground , ground , stone_ground , ground, 6);
+         cubex(0.95,0.002,0.0 , 0.2,0.002,1.0 , 0 , ground , ground , ground , ground , stone_ground , ground, 6 , 0.5,0.5,0.5);
 
          // walk way 2
-         cubex(0.95,0.002,3.0 , 0.2,0.002,1.0 , 0 , ground , ground , ground , ground , stone_ground , ground, 6);
+         cubex(0.95,0.002,3.0 , 0.2,0.002,1.0 , 0 , ground , ground , ground , ground , stone_ground , ground, 6 , 0.5,0.5,0.5);
 
          /* ********************************* PAVEMENT 1  ******************************************/ 
 
          // pavement 1
-         cubex(0.0,-0.1,0.0 , 7.0,0.1,1.0 , 0 , ground , ground , ground , ground , simple_pavement , ground, 20);
+         cubex(0.0,-0.1,0.0 , 7.0,0.1,1.0 , 0 , ground , ground , ground , ground , simple_pavement , ground, 20 , 1,1,1);
 
          // pavement 2
-         cubex(0.0,-0.1,3.0 , 7.0,0.1,1.0 , 0 , ground , ground , ground , ground , simple_pavement , ground, 20);
+         cubex(0.0,-0.1,3.0 , 7.0,0.1,1.0 , 0 , ground , ground , ground , ground , simple_pavement , ground, 20 , 1,1,1);
 
 
          /* ********************************* ROW 1 OF BUILDINGS **********************************/  
 
-         // Low city hall
+
+
          building1(1.5, 0.0);
          building2(2.2, 0.0);
-         building3(2.9, 0.0);
+         building3(2.9 , 0.0);
+         
 
          // High glass office building
          building4(3.2,-0.6);
@@ -906,13 +915,13 @@ void display()
          building5(4.0, 0.4);
          building6(4.6, 0.25);
          // window panel
-         cubex(4.9,1.2,0.4 , 0.002,1.2,0.1 , 0 , glass_window , glass_window , glass_window , glass_window , glass_window , glass_window, 3);
+         cubex(4.9,1.2,0.4 , 0.002,1.2,0.1 , 0 , glass_window , glass_window , glass_window , glass_window , glass_window , glass_window, 3 , 1,1,1);
 
 
          // Medium apartment building
          building7(4.5,-0.5);
          
-         // High glas office building 
+         // High glass office building 
          building8(-0.3,0.0);
          building9(-0.3,0.0);
          
@@ -1053,7 +1062,7 @@ static void building4(float x, float z){
    glTranslated(x,0,z);
    house2(0,1.1,0 , 0.3,1.1,0.15 , 0 , glass_window , glass_window , glass_window , glass_window , glass_window , 3);
    // flat roof
-   cubex(0,2.21,0 , 0.305,0.01,0.155 , 0 , metal_grey , metal_grey , metal_grey , metal_grey , metal_grey , metal_grey, 3);     
+   cubex(0,2.21,0 , 0.305,0.01,0.155 , 0 , metal_grey , metal_grey , metal_grey , metal_grey , metal_grey , metal_grey, 3 , 1,1,1);     
    glPopMatrix();
 }
 
@@ -1064,7 +1073,7 @@ static void building5(float x, float z){
    // first glass frame first level
    house2(0,1.2,0 , 0.3,1.2,0.3 , 0 ,  glass_window, grey_brick_wall , glass_window , grey_brick_wall, grey_brick_wall, 6);
    // flat roof
-   cubex(0,2.43,0 , 0.305,0.03,0.305 , 0 , metal_grey , metal_grey , metal_grey , metal_grey , metal_grey , metal_grey, 3);     
+   cubex(0,2.43,0 , 0.305,0.03,0.305 , 0 , metal_grey , metal_grey , metal_grey , metal_grey , metal_grey , metal_grey, 3 , 1,1,1);     
 
    glPopMatrix();
 }
@@ -1076,7 +1085,7 @@ static void building6(float x, float z){
    // second brick frame 
    house2(0,1.2,0 , 0.3,1.2,0.3 , 0 , concrete_wall,  concrete_wall ,     concrete_wall ,  concrete_wall,    concrete_wall, 6);
    // flat roof
-   cubex(0,2.43,0 , 0.305,0.03,0.305 , 0 , metal_grey , metal_grey , metal_grey , metal_grey , metal_grey , metal_grey, 3);    
+   cubex(0,2.43,0 , 0.305,0.03,0.305 , 0 , metal_grey , metal_grey , metal_grey , metal_grey , metal_grey , metal_grey, 3 , 1,1,1);    
    glPopMatrix();
 }
 
@@ -1086,7 +1095,7 @@ static void building7(float x, float z){
    glTranslated(x,0,z);
    house2(0,0.8,0 , 0.9,0.8,0.3 , 0, building_wall , building_wall , building_wall , building_wall , building_wall , 2);
    // roof
-   cubex(0,1.61,0 , 0.905,0.01,0.305 , 0 , concrete_wall , concrete_wall , concrete_wall , concrete_wall , concrete_wall , concrete_wall, 3);     
+   cubex(0,1.61,0 , 0.905,0.01,0.305 , 0 , concrete_wall , concrete_wall , concrete_wall , concrete_wall , concrete_wall , concrete_wall, 3 , 1,1,1);     
    glPopMatrix();
 }
 
@@ -1097,7 +1106,7 @@ static void building8(float x, float z){
    // frame
    house2(0,0.5,0 , 1.0,0.5,0.8 , 0, glass_window, glass_window , glass_window , glass_window, glass_window, 3);
    // roof
-   cubex(0,1.05,0 , 1.005,0.05,0.805 , 0 , metal_grey , metal_grey , metal_grey , metal_grey , metal_grey , ground, 3);     
+   cubex(0,1.05,0 , 1.005,0.05,0.805 , 0 , concrete_wall , concrete_wall , concrete_wall , concrete_wall , metal_grey , ground, 3 , 1,1,1);     
 glPopMatrix();
 }
 
@@ -1108,7 +1117,7 @@ static void building9(float x, float z){
    // frame
    house2(0,1.1,0 , 0.80,1.0,0.60 , 0, glass_window, glass_window , glass_window , glass_window, glass_window, 3);
    // roof
-   cubex(0,2.2,0 , 0.805,0.1,0.605 , 0 , metal_grey , metal_grey , metal_grey , metal_grey , metal_grey , ground, 3);     
+   cubex(0,2.2,0 , 0.805,0.1,0.605 , 0 , concrete_wall , concrete_wall , concrete_wall , concrete_wall , metal_grey , ground, 3 , 1,1,1);     
    glPopMatrix();
 }
 
@@ -1126,7 +1135,7 @@ static void building11(float x, float z){
    glTranslated(x,0,z);
    house2(0,0.4,0 , 0.5,0.4,0.4 , 0, red_wall , red_wall , red_wall , red_wall , red_wall , 3);
    // flat roof
-   cubex(0,0.81,0 , 0.51,0.01,0.41 , 0 , metal_grey , metal_grey , metal_grey , metal_grey , metal_grey , metal_grey, 3);    
+   cubex(0,0.81,0 , 0.51,0.01,0.41 , 0 , metal_grey , metal_grey , metal_grey , metal_grey , metal_grey , metal_grey, 3 , 1,1,1);    
    glPopMatrix();
 }
 
@@ -1137,7 +1146,7 @@ static void building12(float x, float z){
    // first frame
    house2(0,0.4,0 , 0.8,0.4,0.6 , 0, building_wall , building_wall , building_wall , building_wall , building_wall , 2);
    // flat roof
-   cubex(0,0.81,0 , 0.805,0.01,0.605 , 0 , concrete_wall , concrete_wall , concrete_wall , concrete_wall , concrete_wall , concrete_wall, 3);    
+   cubex(0,0.81,0 , 0.805,0.01,0.605 , 0 , concrete_wall , concrete_wall , concrete_wall , concrete_wall , concrete_wall , concrete_wall, 3 , 1,1,1);    
    glPopMatrix();
 }
 
@@ -1148,7 +1157,7 @@ static void building13(float x, float z){
    // second frame
    house2(0,1.22,0 , 0.75,0.4,0.55 , 0, building_wall , building_wall , building_wall , building_wall , building_wall , 2);
    // second roof
-   cubex(0,1.63,0 , 0.755,0.01,0.610 , 0 , concrete_wall , concrete_wall , concrete_wall , concrete_wall , concrete_wall , concrete_wall, 3);   
+   cubex(0,1.63,0 , 0.755,0.01,0.610 , 0 , concrete_wall , concrete_wall , concrete_wall , concrete_wall , concrete_wall , concrete_wall, 3 , 1,1,1);   
    glPopMatrix();
 }
 
@@ -1159,7 +1168,7 @@ static void building14(float x, float z){
    // third frame
    house2(0,2.04,0 , 0.60,0.4,0.40 , 0, building_wall , building_wall , building_wall , building_wall , building_wall , 2);
    // third roof
-   cubex(0,2.45,0 , 0.605,0.01,0.405 , 0 , concrete_wall , concrete_wall , concrete_wall , concrete_wall , concrete_wall , concrete_wall, 3); 
+   cubex(0,2.45,0 , 0.605,0.01,0.405 , 0 , concrete_wall , concrete_wall , concrete_wall , concrete_wall , concrete_wall , concrete_wall, 3 , 1,1,1); 
    glPopMatrix();
 }
 
@@ -1170,7 +1179,7 @@ static void building15(float x, float z){
    // fourth frame
    house2(0,2.84,0 , 0.45,0.4,0.25 , 0, building_wall , building_wall , building_wall , building_wall , building_wall , 2);
    // fourth roof
-   cubex(0,3.25,0 , 0.455,0.01,0.255 , 0 , concrete_wall , concrete_wall , concrete_wall , concrete_wall , concrete_wall , concrete_wall, 3);     
+   cubex(0,3.25,0 , 0.455,0.01,0.255 , 0 , concrete_wall , concrete_wall , concrete_wall , concrete_wall , concrete_wall , concrete_wall, 3 , 1,1,1);     
    glPopMatrix();
 }
 
@@ -1179,7 +1188,7 @@ static void building16(float x, float z){
    glPushMatrix();
    glTranslated(x,0,z);
    house2(0.0,1.3,0, 0.6,1.3,0.4 , 0, building_wall , building_wall , building_wall , building_wall , building_wall , 2);
-   cubex(0.0,2.61,0, 0.605,0.01,0.405 , 0 , concrete_wall , concrete_wall , concrete_wall , concrete_wall , concrete_wall , concrete_wall, 3);
+   cubex(0.0,2.61,0, 0.605,0.01,0.405 , 0 , concrete_wall , concrete_wall , concrete_wall , concrete_wall , concrete_wall , concrete_wall, 3 , 1,1,1);
    glPopMatrix();
 }
 
@@ -1189,7 +1198,7 @@ static void building17(float x, float z){
    glTranslated(x,0,z);
    house2(0,1.1,0 , 0.8,1.1,0.5 , 0, building_wall , building_wall , building_wall , building_wall , building_wall , 2);
    //  roof
-   cubex(0,2.21,0 , 0.805,0.01,0.505 , 0 , concrete_wall , concrete_wall , concrete_wall , concrete_wall , concrete_wall , concrete_wall, 3);     
+   cubex(0,2.21,0 , 0.805,0.01,0.505 , 0 , concrete_wall , concrete_wall , concrete_wall , concrete_wall , concrete_wall , concrete_wall, 3 , 1,1,1);     
    glPopMatrix();
 }
 
@@ -1199,7 +1208,7 @@ static void building18(float x, float z){
    glTranslated(x,0,z);
    house2(0,1.2,0 , 0.25,1.2,0.5 , 0, building_windows , building_windows , building_windows , building_windows , building_windows , 3.2);
    // roof
-   cubex(0,2.41,0 , 0.255,0.01,0.505 , 0 , concrete_wall , concrete_wall , concrete_wall , concrete_wall , concrete_wall , concrete_wall, 3);     
+   cubex(0,2.41,0 , 0.255,0.01,0.505 , 0 , concrete_wall , concrete_wall , concrete_wall , concrete_wall , concrete_wall , concrete_wall, 3 , 1,1,1);     
    glPopMatrix();
 }
 
@@ -1209,7 +1218,7 @@ static void building19(float x, float z){
    glTranslated(x,0,z);
    house2(0,1.0,0 , 0.6,1.0,0.2 , 0, building_windows , building_windows , building_windows , building_windows , building_windows , 2.8);
    // roof
-   cubex(0,2.01,0 , 0.605,0.01,0.205 , 0 , concrete_wall , concrete_wall , concrete_wall , concrete_wall , concrete_wall , concrete_wall, 3);    
+   cubex(0,2.01,0 , 0.605,0.01,0.205 , 0 , concrete_wall , concrete_wall , concrete_wall , concrete_wall , concrete_wall , concrete_wall, 3 , 1,1,1);    
    glPopMatrix();
 }
 
@@ -1219,7 +1228,7 @@ static void building20(float x, float z){
    glTranslated(x,0,z);
    house2(0,1.0,0 , 0.6,1.0,0.2 , 0, building_windows , building_windows , building_windows , building_windows , building_windows , 2.8);
    // roof
-   cubex(0,2.01,0 , 0.605,0.01,0.205 , 0 , concrete_wall , concrete_wall , concrete_wall , concrete_wall , concrete_wall , concrete_wall, 3);  
+   cubex(0,2.01,0 , 0.605,0.01,0.205 , 0 , concrete_wall , concrete_wall , concrete_wall , concrete_wall , concrete_wall , concrete_wall, 3 , 1,1,1);  
    glPopMatrix();
 }
 
@@ -1229,7 +1238,7 @@ static void building21(float x, float z){
    glTranslated(x,0,z);
    house2(0,1.5,0 , 0.65,1.5,0.8 , 0, modern_building , modern_building , modern_building , modern_building , modern_building , 5);
    // roof
-   cubex(0,3.01,0 , 0.655,0.01,0.805 , 0 , concrete_wall , concrete_wall , concrete_wall , concrete_wall , concrete_wall , concrete_wall, 3);   
+   cubex(0,3.01,0 , 0.655,0.01,0.805 , 0 , concrete_wall , concrete_wall , concrete_wall , concrete_wall , concrete_wall , concrete_wall, 3 , 1,1,1);   
    glPopMatrix();
 }
 
@@ -1249,7 +1258,7 @@ static void building23(float x, float z){
    // second frame
    house2(0,0.9,0 , 0.3,0.9,0.3 , 0 , old_facade , old_facade , old_facade , old_facade , old_facade , 2);
    // roof
-   cubex(0,1.81,0 , 0.305,0.01,0.305 , 0 , concrete_wall , concrete_wall , concrete_wall , concrete_wall , concrete_wall , concrete_wall, 3);    
+   cubex(0,1.81,0 , 0.305,0.01,0.305 , 0 , concrete_wall , concrete_wall , concrete_wall , concrete_wall , concrete_wall , concrete_wall, 3 , 1,1,1);    
    glPopMatrix();
 }
 
@@ -1259,7 +1268,7 @@ static void building24(float x, float z){
    glTranslated(x,0,z);
    house2(0,2.0,0 , 0.4,2.0,0.4 , 0, cloud_window , cloud_window , cloud_window , cloud_window , cloud_window , 8);
    // roof
-   cubex(0,4.01,0 , 0.405,0.01,0.405 , 0 , concrete_wall , concrete_wall , concrete_wall , concrete_wall , concrete_wall , concrete_wall, 3); 
+   cubex(0,4.01,0 , 0.405,0.01,0.405 , 0 , concrete_wall , concrete_wall , concrete_wall , concrete_wall , concrete_wall , concrete_wall, 3 , 1,1,1); 
    glPopMatrix();
 }
 
@@ -1269,7 +1278,7 @@ static void building25(float x, float z){
    glTranslated(x,0,z);
    house2(0,1.0,0 , 0.35,1.0,0.35 , 0, glass_window , glass_window , glass_window , glass_window , glass_window , 8);
    // roof
-   cubex(0,2.01,0 , 0.355,0.01,0.355 , 0 , concrete_wall , concrete_wall , concrete_wall , concrete_wall , concrete_wall , concrete_wall, 3);   
+   cubex(0,2.01,0 , 0.355,0.01,0.355 , 0 , concrete_wall , concrete_wall , concrete_wall , concrete_wall , concrete_wall , concrete_wall, 3 , 1,1,1);   
    glPopMatrix();
 }
 
@@ -1279,7 +1288,7 @@ static void building26(float x, float z){
    glTranslated(x,0,z);
    house2(0,1.5,0 , 0.35,1.5,0.8 , 0, modern_building , modern_building , modern_building , modern_building , modern_building , 8);
    // roof
-   cubex(0,3.01,0 , 0.355,0.01,0.805 , 0 , concrete_wall , concrete_wall , concrete_wall , concrete_wall , concrete_wall , concrete_wall, 3); 
+   cubex(0,3.01,0 , 0.355,0.01,0.805 , 0 , concrete_wall , concrete_wall , concrete_wall , concrete_wall , concrete_wall , concrete_wall, 3 , 1,1,1); 
    glPopMatrix();
 }
 
@@ -1288,7 +1297,7 @@ static void building27(float x, float z){
    glPushMatrix();
    glTranslated(x,0,z);
    // first frame
-   cylinder(0,0,0 , 0.5,  1.0 , modern_building, 2.5);
+   cylinder(0,0,0 , 0.5,  1.0 , modern_building, 2.7);
    // first roof
    sphere(0,1.0,0 , 0.5  ,  0.5,0.5,0.5);
    glPopMatrix();
@@ -1299,7 +1308,7 @@ static void building28(float x, float z){
    glPushMatrix();
    glTranslated(x,0,z);
    // second frame
-   cylinder(0,1.05,0 , 0.45, 0.8 , modern_building, 2.2);
+   cylinder(0,1.05,0 , 0.45, 0.8 , modern_building, 2.6);
    // second roof
    sphere(0,1.85,0 , 0.45 , 0.45,0.30,0.45);
    glPopMatrix();
@@ -1310,7 +1319,7 @@ static void building29(float x, float z){
    glPushMatrix();
    glTranslated(x,0,z);
    // third frame
-   cylinder(0,1.90,0 , 0.35, 0.9 , modern_building, 2.2);
+   cylinder(0,1.90,0 , 0.35, 0.9 , modern_building, 2.7);
    // third roof
    sphere(0,2.80,0 , 0.35 , 0.35,0.20,0.35);
    glPopMatrix();
@@ -1489,32 +1498,27 @@ int main(int argc,char* argv[])
    glutKeyboardFunc(key);
    glutIdleFunc(idle);
    //  Load textures
-   walls = LoadTexBMP("wall_bricks.bmp");
-   tiles = LoadTexBMP("tile_roof.bmp");
-   dice[0] = LoadTexBMP("dice1.bmp");
-   dice[1] = LoadTexBMP("dice2.bmp");
-   dice[2] = LoadTexBMP("dice3.bmp");
-   dice[3] = LoadTexBMP("dice4.bmp");
-   dice[4] = LoadTexBMP("dice5.bmp");
-   dice[5] = LoadTexBMP("dice6.bmp");
-   ground = LoadTexBMP("road_texture.bmp");
-   glass_window = LoadTexBMP("glass_window.bmp");
-   red_wall = LoadTexBMP("red_wall.bmp");
-   metal_grey = LoadTexBMP("metal_grey.bmp");
-   plaque_wall = LoadTexBMP("plaque_wall.bmp");
-   roof_wood_texture = LoadTexBMP("roof_wood_texture.bmp");
-   grey_brick_wall = LoadTexBMP("grey_brick_wall.bmp");
-   grey_roof = LoadTexBMP("grey_roof.bmp");
-   stone_ground = LoadTexBMP("stone_ground.bmp");
-   old_brick = LoadTexBMP("old_brick.bmp");
-   pavement_coffee = LoadTexBMP("pavement_coffee.bmp");
-   simple_pavement = LoadTexBMP("simple_pavement.bmp");
-   concrete_wall = LoadTexBMP("concrete_wall.bmp");
-   building_wall = LoadTexBMP("building_wall.bmp");
-   building_windows = LoadTexBMP("building_windows.bmp");
-   modern_building = LoadTexBMP("modern_building.bmp");
-   cloud_window = LoadTexBMP("cloud_window.bmp");
-   old_facade = LoadTexBMP("old_facade.bmp"); 
+   walls = LoadTexBMP("textures/wall_bricks.bmp");
+   tiles = LoadTexBMP("textures/tile_roof.bmp");
+   ground = LoadTexBMP("textures/road_texture.bmp");
+   glass_window = LoadTexBMP("textures/glass_window.bmp");
+   red_wall = LoadTexBMP("textures/red_wall.bmp");
+   metal_grey = LoadTexBMP("textures/metal_grey.bmp");
+   plaque_wall = LoadTexBMP("textures/plaque_wall.bmp");
+   roof_wood_texture = LoadTexBMP("textures/roof_wood_texture.bmp");
+   grey_brick_wall = LoadTexBMP("textures/grey_brick_wall.bmp");
+   grey_roof = LoadTexBMP("textures/grey_roof.bmp");
+   stone_ground = LoadTexBMP("textures/stone_ground.bmp");
+   old_brick = LoadTexBMP("textures/old_brick.bmp");
+   pavement_coffee = LoadTexBMP("textures/pavement_coffee.bmp");
+   simple_pavement = LoadTexBMP("textures/simple_pavement.bmp");
+   concrete_wall = LoadTexBMP("textures/concrete_wall.bmp");
+   building_wall = LoadTexBMP("textures/building_wall.bmp");
+   building_windows = LoadTexBMP("textures/building_windows.bmp");
+   modern_building = LoadTexBMP("textures/modern_building.bmp");
+   cloud_window = LoadTexBMP("textures/cloud_window.bmp");
+   old_facade = LoadTexBMP("textures/old_facade.bmp"); 
+   building_top = LoadTexBMP("textures/old_facade.bmp"); 
 
    //  Pass control to GLUT so it can interact with the user
    ErrCheck("init");
