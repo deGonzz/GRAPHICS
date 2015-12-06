@@ -497,7 +497,7 @@ static void car(double x,double y,double z, double angle)
    glPushMatrix();
    //  Offset
    glTranslated(x,y,z);
-   glScaled(0.3,0.3,0.3);
+   glScaled(0.2,0.2,0.2);
    glRotated(angle,0,1,0);
 
    cubex(0.0,0.26,-0.05 , 0.15,0.07,0.20 , 0 , glass_window , glass_window , glass_window , glass_window , ground , ground, 0.1 , 1,1,1);
@@ -852,8 +852,8 @@ void drawAll(){
          // x = 4
          cubex(4.0,0.05,0.0 , 0.01,0.05,10 , 0 , ground , ground , ground , ground , ground , ground, 1 , 1,1,1);
 
-         // x = 6
-         cubex(6.0,0.05,0.0 , 0.01,0.05,10 , 0 , ground , ground , ground , ground , ground , ground, 1 , 1,1,1);
+         // // x = 6
+         // cubex(6.0,0.05,0.0 , 0.01,0.05,10 , 0 , ground , ground , ground , ground , ground , ground, 1 , 1,1,1);
 
          // x = 8
          cubex(8.0,0.05,0.0 , 0.01,0.05,10 , 0 , ground , ground , ground , ground , ground , ground, 1 , 1,1,1);
@@ -1471,17 +1471,20 @@ void idle()
       if(car_time>0 && car_time<=5){
          car_x = 0;
          car_angle = 0;
-         car_z = -1.0 + car_time/(4.75/2.0);
+         car_z = -1.0 + car_time/(3.5/2.0);
       }
       if(car_time>5 && car_time<=7){
          car_angle = 90.0*((car_time-5.0)/2.0);
       }
-      if(car_time>7 && car_time<=15){
-         car_x = 0.75*car_time-5.25;
-         
+      if(car_time>7 && car_time<=11){
+         car_x = 1.5*car_time-10.5;     
       }
-
-
+      if(car_time>11 && car_time<=12){
+         car_angle = 90.0 - 90.0*((car_time-11.0));
+      }
+      if(car_time>12 && car_time<=15){
+         car_z = (57.0/70.0)*car_time-(277.0/35.0);     
+      }
 
       // car_z = Sin(fmod(90*t,360.0));
 
