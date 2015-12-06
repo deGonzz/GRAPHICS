@@ -31,6 +31,7 @@ int mode=0;       //  Display mode
 int axes=0;       //  Display axes
 int proj_mode=0;       //  Projection mode
 int move=1;       //  Move lighting
+int car_move=1;   //  Move Car
 int th=0;         //  Azimuth of view angle
 int ph=0;         //  Elevation of view angle
 int fov=55;       //  Field of view (for perspective)
@@ -55,6 +56,10 @@ int specular  =   0;  // Specular intensity (%)
 int shininess =   0;  // Shininess (power of two)
 float shinyvec[1];    // Shininess (value)
 int zh        =  90;  // Light azimuth
+float car_z   =  0;   // Car azimuth
+float car_x   =  0;
+int car_angle =  0;
+float car_time;
 float ylight  =   0;  // Elevation of light
 
 // wall textures
@@ -1052,6 +1057,16 @@ void display()
    //  Flat or smooth shading
    glShadeModel(smooth ? GL_SMOOTH : GL_FLAT);
 
+
+   /********************************************************************* Car Motion *********************************************************************/
+
+  //  Draw car position 
+
+  car(car_x,0,car_z, car_angle);
+
+
+  /********************************************************************* Car Motion END *********************************************************************/
+
    //  Light switch
    if (light)
    {
@@ -1086,7 +1101,11 @@ void display()
 
    drawAll();
 
-  car(0, 0, 0, 0);
+   /******************************************** ACTUAL CAR IS HERE ********************************************/
+
+   // car(0, 0, 0, 0);
+
+   /******************************************** NO CAR AFTER THIS ********************************************/
         
    //  Draw axes - no lighting from here on
    glDisable(GL_LIGHTING);
@@ -1438,13 +1457,37 @@ static void building30(float x, float z){
  */
 void idle()
 {
+   double t = glutGet(GLUT_ELAPSED_TIME)/1000.0;
    if(move){
       //  Elapsed time in seconds
-      double t = glutGet(GLUT_ELAPSED_TIME)/1000.0;
       zh = fmod(90*t,360.0);
       //  Tell GLUT it is necessary to redisplay the scene
       glutPostRedisplay();
    }
+
+   if(car_move){
+      car_time = fmod(t,15);
+      //  Elapsed time in seconds
+      if(car_time>0 && car_time<=5){
+         car_x = 0;
+         car_angle = 0;
+         car_z = -1.0 + car_time/(4.75/2.0);
+      }
+      if(car_time>5 && car_time<=7){
+         car_angle = 90.0*((car_time-5.0)/2.0);
+      }
+      if(car_time>7 && car_time<=15){
+         car_x = 0.75*car_time-5.25;
+         
+      }
+
+
+
+      // car_z = Sin(fmod(90*t,360.0));
+
+      glutPostRedisplay();
+   }
+
 }
 
 /*
