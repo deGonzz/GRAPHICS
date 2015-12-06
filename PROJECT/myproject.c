@@ -122,6 +122,7 @@ static void building27(float x, float z);
 static void building28(float x, float z);
 static void building29(float x, float z);
 static void building30(float x, float z);
+static void Vertex(double th,double ph);
 
 
 // /*
@@ -426,6 +427,88 @@ static void cylinder(double x,double y,double z,double r, double h, int cylinder
    //  Undo transformations
    glPopMatrix();
 }
+
+
+
+static void sphere2(double x,double y,double z,
+                     double r,
+                     double scale_x,
+                     double scale_y,
+                     double scale_z)
+{
+   const int d=5;
+   int th,ph;
+   float yellow[] = {1.0,1.0,0.0,1.0};
+   float Emission[]  = {0.0,0.0,0.01*emission,1.0};
+
+   //  Save transformation
+   glPushMatrix();
+   //  Offset and scale
+   glTranslated(x,y,z);
+   glScaled(scale_x,scale_y,scale_z);
+   glScaled(r,r,r);
+   //  White sphere
+   glColor3f(1,1,1);
+   glMaterialfv(GL_FRONT,GL_SHININESS,shinyvec);
+   glMaterialfv(GL_FRONT,GL_SPECULAR,yellow);
+   glMaterialfv(GL_FRONT,GL_EMISSION,Emission);
+
+   //  Latitude bands
+   for (ph=-90;ph<90;ph+=d)
+   {
+      glBegin(GL_QUAD_STRIP);
+      for (th=0;th<=360;th+=d)
+      {
+         Vertex(th,ph);
+         Vertex(th,ph+d);
+      }
+      glEnd();
+   }
+
+   //  Undo transformations
+   glPopMatrix();
+}
+
+
+static void tire(double x,double y,double z, double r, double h, int cylinder_texture){
+   glPushMatrix();
+   glTranslated(x,y,z);
+   glRotated(90,0,0,1);
+   {
+      sphere2(0,0,0,r,1,0.00000001,1);
+      cylinder(0,0,0, r, h, cylinder_texture, 1);
+      sphere2(0,h,0,r,1,0.00000001,1);
+   }
+   glRotated(-90,0,0,1);
+   glPopMatrix();
+}
+
+/*
+   Draw a car
+*/
+static void car(double x,double y,double z, double angle)   
+{
+   //  Save transformation
+   glPushMatrix();
+   //  Offset
+   glTranslated(x,y,z);
+   glScaled(0.3,0.3,0.3);
+   glRotated(angle,0,1,0);
+
+   cubex(0.0,0.26,-0.05 , 0.15,0.07,0.20 , 0 , glass_window , glass_window , glass_window , glass_window , ground , ground, 0.1 , 1,1,1);
+   cubex(0.0,0.12,0.0 , 0.15,0.07,0.35 , 0 , ground , ground , ground , ground , ground , ground, 1 , 1,1,1);
+   tire(0.17,0.06,0.17,0.06,0.04,tiles);
+   tire(0.17,0.06,-0.17,0.06,0.04,tiles);
+   tire(-0.13,0.06,0.17,0.06,0.04,tiles);
+   tire(-0.13,0.06,-0.17,0.06,0.04,tiles);
+
+
+   glPopMatrix();
+   glDisable(GL_TEXTURE_2D);
+
+}  
+
+
 
 /*
    Draw a house1
@@ -736,77 +819,9 @@ static void sphere(double x,double y,double z,
    glPopMatrix();
 }
 
-/*
- *  OpenGL (GLUT) calls this routine to display the scene
- */
-void display()
-{
-   const double len=20;  //  Length of axes
-   //  Erase the window and the depth buffer
-   glClear(GL_COLOR_BUFFER_BIT|GL_DEPTH_BUFFER_BIT);
-   //  Enable Z-buffering in OpenGL
-   glEnable(GL_DEPTH_TEST);
-   //  Undo previous transformations
-   glLoadIdentity();
-   //  Perspective - set eye position
-   if (proj_mode == 1)
-   {
-      double Ex = -2*dim*Sin(th)*Cos(ph);
-      double Ey = +2*dim        *Sin(ph);
-      double Ez = +2*dim*Cos(th)*Cos(ph);
-      gluLookAt(Ex,Ey,Ez , 0,0,0 , 0,Cos(ph),0);
-   }
-   //  Orthogonal - set world orientation
-   else if(proj_mode == 2)
-   {
-      double Ex = 0 + moveX;
-      double Ez = +2*dim + moveZ;
-      double Cx = Ex-Sin(new_angle);
-      double Cz = Ez-Cos(new_angle);
-      gluLookAt(Ex,y_pos,Ez , Cx,y_pos,Cz , 0,1,0);
-   }
-   else
-   {
-      glRotatef(ph,1,0,0);
-      glRotatef(th,0,1,0);
-   }
 
-   //  Flat or smooth shading
-   glShadeModel(smooth ? GL_SMOOTH : GL_FLAT);
-
-   //  Light switch
-   if (light)
-   {
-        //  Translate intensity to color vectors
-        float Ambient[]   = {0.01*ambient ,0.01*ambient ,0.01*ambient ,1.0};
-        float Diffuse[]   = {0.01*diffuse ,0.01*diffuse ,0.01*diffuse ,1.0};
-        float Specular[]  = {0.01*specular,0.01*specular,0.01*specular,1.0};
-        //  Light position
-        float Position[]  = {distance*Cos(zh),ylight,distance*Sin(zh),1.0};
-        //  Draw light position as sphere (still no lighting here)
-        glColor3f(1,1,1);
-        sphere(Position[0],Position[1],Position[2],0.1 , 0.1,0.1,0.1);
-        //  OpenGL should normalize normal vectors
-        glEnable(GL_NORMALIZE);
-        //  Enable lighting
-        glEnable(GL_LIGHTING);
-        //  Location of viewer for specular calculations
-        glLightModeli(GL_LIGHT_MODEL_LOCAL_VIEWER,local);
-        //  glColor sets ambient and diffuse color materials
-        glColorMaterial(GL_FRONT_AND_BACK,GL_AMBIENT_AND_DIFFUSE);
-        glEnable(GL_COLOR_MATERIAL);
-        //  Enable light 0
-        glEnable(GL_LIGHT0);
-        //  Set ambient, diffuse, specular components and position of light 0
-        glLightfv(GL_LIGHT0,GL_AMBIENT ,Ambient);
-        glLightfv(GL_LIGHT0,GL_DIFFUSE ,Diffuse);
-        glLightfv(GL_LIGHT0,GL_SPECULAR,Specular);
-        glLightfv(GL_LIGHT0,GL_POSITION,Position);
-   }
-   else
-     glDisable(GL_LIGHTING);
-
-         /*
+void drawAll(){
+    /*
             FENCE WALLS ON X
          */
          // x = -8
@@ -821,8 +836,10 @@ void display()
          // x = -2
          cubex(-2.0,0.05,0.0 , 0.01,0.05,10 , 0 , ground , ground , ground , ground , ground , ground, 1 , 1,1,1);
 
+         /*
          // x = 0
          cubex(0.0,0.2,0.0 , 0.01,0.2,10 , 0 , ground , ground , ground , ground , ground , ground, 1 , 1,1,1);
+         */
 
          // x = 2
          cubex(2.0,0.05,0.0 , 0.01,0.05,10 , 0 , ground , ground , ground , ground , ground , ground, 1 , 1,1,1);
@@ -899,9 +916,9 @@ void display()
          cubex(0.0,-0.1,3.0 , 7.0,0.1,1.0 , 0 , ground , ground , ground , ground , simple_pavement , ground, 20 , 1,1,1);
 
 
-         /* ********************************* ROW 1 OF BUILDINGS **********************************/  
+         /* ********************************* ROW 1 OF BUILDINGS **********************************/
 
-
+         
 
          building1(1.5, 0.0);
          building2(2.2, 0.0);
@@ -921,9 +938,11 @@ void display()
          // Medium apartment building
          building7(4.5,-0.5);
          
+         /*
          // High glass office building 
          building8(-0.3,0.0);
          building9(-0.3,0.0);
+         */
          
          // Apartments house
          building10(-1.8, 0.5);
@@ -994,6 +1013,81 @@ void display()
 
          // The the sun
          sphere(1.0,10.0,1.0,0.3 , 0.3,0.3,0.3);
+}
+/*
+ *  OpenGL (GLUT) calls this routine to display the scene
+ */
+void display()
+{
+   const double len=20;  //  Length of axes
+   //  Erase the window and the depth buffer
+   glClear(GL_COLOR_BUFFER_BIT|GL_DEPTH_BUFFER_BIT);
+   //  Enable Z-buffering in OpenGL
+   glEnable(GL_DEPTH_TEST);
+   //  Undo previous transformations
+   glLoadIdentity();
+   //  Perspective - set eye position
+   if (proj_mode == 1)
+   {
+      double Ex = -2*dim*Sin(th)*Cos(ph);
+      double Ey = +2*dim        *Sin(ph);
+      double Ez = +2*dim*Cos(th)*Cos(ph);
+      gluLookAt(Ex,Ey,Ez , 0,0,0 , 0,Cos(ph),0);
+   }
+   //  Orthogonal - set world orientation
+   else if(proj_mode == 2)
+   {
+      double Ex = 0 + moveX;
+      double Ez = +2*dim + moveZ;
+      double Cx = Ex-Sin(new_angle);
+      double Cz = Ez-Cos(new_angle);
+      gluLookAt(Ex,y_pos,Ez , Cx,y_pos,Cz , 0,1,0);
+   }
+   else
+   {
+      glRotatef(ph,1,0,0);
+      glRotatef(th,0,1,0);
+   }
+
+   //  Flat or smooth shading
+   glShadeModel(smooth ? GL_SMOOTH : GL_FLAT);
+
+   //  Light switch
+   if (light)
+   {
+        //  Translate intensity to color vectors
+        float Ambient[]   = {0.01*ambient ,0.01*ambient ,0.01*ambient ,1.0};
+        float Diffuse[]   = {0.01*diffuse ,0.01*diffuse ,0.01*diffuse ,1.0};
+        float Specular[]  = {0.01*specular,0.01*specular,0.01*specular,1.0};
+        //  Light position
+        float Position[]  = {distance*Cos(zh),ylight,distance*Sin(zh),1.0};
+        //  Draw light position as sphere (still no lighting here)
+        glColor3f(1,1,1);
+        sphere(Position[0],Position[1],Position[2],0.1 , 0.1,0.1,0.1);
+        //  OpenGL should normalize normal vectors
+        glEnable(GL_NORMALIZE);
+        //  Enable lighting
+        glEnable(GL_LIGHTING);
+        //  Location of viewer for specular calculations
+        glLightModeli(GL_LIGHT_MODEL_LOCAL_VIEWER,local);
+        //  glColor sets ambient and diffuse color materials
+        glColorMaterial(GL_FRONT_AND_BACK,GL_AMBIENT_AND_DIFFUSE);
+        glEnable(GL_COLOR_MATERIAL);
+        //  Enable light 0
+        glEnable(GL_LIGHT0);
+        //  Set ambient, diffuse, specular components and position of light 0
+        glLightfv(GL_LIGHT0,GL_AMBIENT ,Ambient);
+        glLightfv(GL_LIGHT0,GL_DIFFUSE ,Diffuse);
+        glLightfv(GL_LIGHT0,GL_SPECULAR,Specular);
+        glLightfv(GL_LIGHT0,GL_POSITION,Position);
+   }
+   else
+     glDisable(GL_LIGHTING);
+
+   drawAll();
+
+  car(0, 0, 0, 0);
+        
    //  Draw axes - no lighting from here on
    glDisable(GL_LIGHTING);
    glColor3f(1,1,1);
@@ -1107,7 +1201,7 @@ static void building8(float x, float z){
    house2(0,0.5,0 , 1.0,0.5,0.8 , 0, glass_window, glass_window , glass_window , glass_window, glass_window, 3);
    // roof
    cubex(0,1.05,0 , 1.005,0.05,0.805 , 0 , concrete_wall , concrete_wall , concrete_wall , concrete_wall , metal_grey , ground, 3 , 1,1,1);     
-glPopMatrix();
+   glPopMatrix();
 }
 
 static void building9(float x, float z){
