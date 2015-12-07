@@ -56,25 +56,35 @@ int specular  =   0;  // Specular intensity (%)
 int shininess =   0;  // Shininess (power of two)
 float shinyvec[1];    // Shininess (value)
 int zh        =  90;  // Light azimuth
-float car_time;
 float ylight  =   0;  // Elevation of light
 
 /*** Car values ***/
-
+float car_time;
+float car_time2;
 // Model 1
 float car_z   =  0;   // z car 1 azimuth
 float car_x   =  0;   // x car 1 azimuth
 int car_angle =  0;   // angle car 1   
 
-// model2
+// model 2
 float car_z2   =  0;   // z car 2 azimuth
 float car_x2   =  0;   // x car 2 azimuth
 int car_angle2 =  0;   // angle car 2  
 
-// model2
+// model 3
 float car_z3   =  0;   // z car 3 azimuth
 float car_x3   =  0;   // x car 3 azimuth
 int car_angle3 =  0;   // angle car 3  
+
+// model 4
+float car_z4   =  0;   // z car 4 azimuth
+float car_x4   =  0;   // x car 4 azimuth
+int car_angle4 =  0;   // angle car 4 
+
+// model 5
+float car_z5   =  0;   // z car 5 azimuth
+float car_x5   =  0;   // x car 5 azimuth
+int car_angle5 =  0;   // angle car 5 
 
 
 /***** Wall textures *****/
@@ -1078,15 +1088,13 @@ void display()
 
    /********************************************************************* Car Motion *********************************************************************/
 
-  //  Draw car position 
+   //  Draw car position 
 
    car(car_x,0,car_z, car_angle, ground, 1);
    car(car_x2,0,car_z2, car_angle2, tiles, 1);
    car(car_x3,0,car_z3, car_angle3, red_wall, 1);
-
-
-
-
+   car(car_x4,0,car_z4, car_angle4, concrete_wall, 1);
+   car(car_x5,0,car_z5, car_angle5, tiles, 1);
 
 
 
@@ -1492,6 +1500,7 @@ void idle()
 
    if(car_move){
       car_time = fmod(t,31);
+      car_time2 = fmod(t,15.5);
       //  Elapsed time in seconds
       /*************************************************************  CAR 1 MOTION ******************************************************/
       // going to z = 1.85714285714 = 26/14 
@@ -1585,12 +1594,12 @@ void idle()
          car_x2 = (-13.0/20.0)*car_time+(393.0/20.0); 
       }
       // ANGLE from 270 to 90 degrees
-      if(car_time>23 && car_time<=24){
-         car_angle2 = (-180.0)*car_time + 4410.0;  
+      if(car_time>23 && car_time<=23.5){
+         car_angle2 = (-360.0)*car_time + 8550.0;  
       }
       // going from x = 4.7 to x = 6.5
-      if(car_time>24 && car_time<=26){
-         car_x2 = (9.0/10.0)*car_time-(169.0/10.0); 
+      if(car_time>23.5 && car_time<=26){
+         car_x2 = (18.0/25.0)*car_time-(611.0/50.0); 
       }
       // ANGLE from 90 to 180 degrees
       if(car_time>26 && car_time<=27){
@@ -1664,13 +1673,95 @@ void idle()
       if(car_time>28.5 && car_time<=29){
          car_angle3 = (180.0)*car_time - 4860.0;  
       }
-      // going from z = 1.3 to x = 4.6
+      // going from z = 1.3 to z = 4.6
       if(car_time>29 && car_time<=30.5){
          car_z3 = (11.0/5.0)*car_time-(125.0/2.0); 
       }
       // ANGLE from 0 to 90 degrees
       if(car_time>30.5 && car_time<=31){
          car_angle3 = (180.0)*car_time - 5490.0;  
+      }
+
+
+      /*************************************************************  CAR 4 MOTION ******************************************************/
+      // going to x = 4 to -4.5 
+      if(car_time2>0 && car_time2<=3.375){
+         car_z4 = 1.3;
+         car_angle4 = 270;
+         car_x4 = -(68.0/27.0)*car_time2 + 4.0;
+      }
+      // ANGLE from 270 to 180
+      if(car_time2>3.375 && car_time2<=3.875){
+         car_angle4 = -(180.0)*car_time2 + (1755.0/2.0);  
+      }
+      // going to z = 1.3 to -1.3
+      if(car_time2>3.875 && car_time2<=6.125){
+         car_z4 = -(52.0/45.0)*car_time2 + (52.0/9.0); 
+      } 
+      // ANGLE from 180 to 90 degrees 
+      if(car_time2>6.125 && car_time2<=6.625){
+         car_angle4 = -(180.0)*car_time2 + (2565.0/2.0); 
+      }
+      // going from x = -4.5 to 6
+      if(car_time2>6.625 && car_time2<=11.125){
+         car_x4 = (7.0/3.0)*car_time2 - (479.0/24.0);  
+      }
+      // ANGLE from 90 to 0 degrees
+      if(car_time2>11.125 && car_time2<=11.625){
+         car_angle4 = (-180.0)*car_time2 + (4185.0/2.0);  
+      }
+      // going from z = -1.3 to z = 1.3
+      if(car_time2>11.625 && car_time2<=13.875){
+         car_z4 = (52.0/45.0)*car_time2 - (221.0/15.0); 
+      }
+      // ANGLE from 360 to 270 degrees
+      if(car_time2>13.875 && car_time2<=14.375){
+         car_angle4 = -(180.0)*car_time2 + (5715.0/2.0); 
+      }
+      // going from x = 6 to x = 4
+      if(car_time2>14.375 && car_time2<=15.5){
+         car_x4 = -(16.0/9.0)*car_time2 + (284.0/9.0); 
+      }
+
+
+      /*************************************************************  CAR 5 MOTION ******************************************************/
+      // going to x = -2 to 6 
+      if(car_time2>0 && car_time2<=3.375){
+         car_z5 = 1.70;
+         car_angle5 = 270;
+         car_x5 = (64.0/27.0)*car_time2 - 2.0;
+      }
+      // ANGLE from 90 to 0
+      if(car_time2>3.375 && car_time2<=3.875){
+         car_angle5 = -(180.0)*car_time2 + (1395.0/2.0);  
+      }
+      // going to z = 1.70 to 4.3
+      if(car_time2>3.875 && car_time2<=6.125){
+         car_z5 = (52.0/45.0)*car_time2 - (25.0/9.0); 
+      } 
+      // ANGLE from 360 to 270 degrees 
+      if(car_time2>6.125 && car_time2<=6.625){
+         car_angle5 = -(180.0)*car_time2 + (2925.0/2.0); 
+      }
+      // going from x = 6 to -4.5
+      if(car_time2>6.625 && car_time2<=11.125){
+         car_x5 = -(7.0/3.0)*car_time2 + (515.0/24.0);  
+      }
+      // ANGLE from 270 to 180 degrees
+      if(car_time2>11.125 && car_time2<=11.625){
+         car_angle5 = (-180.0)*car_time2 + (4545.0/2.0);  
+      }
+      // going from z = 4.3 to z = 1.70
+      if(car_time2>11.625 && car_time2<=13.875){
+         car_z5 = -(52.0/45.0)*car_time2 + (266.0/15.0); 
+      }
+      // ANGLE from 180 to 90 degrees
+      if(car_time2>13.875 && car_time2<=14.375){
+         car_angle5 = -(180.0)*car_time2 + (5355.0/2.0); 
+      }
+      // going from x = -4.5 to x = -2
+      if(car_time2>14.375 && car_time2<=15.5){
+         car_x5 = (20.0/9.0)*car_time2 - (328.0/9.0); 
       }
 
 
