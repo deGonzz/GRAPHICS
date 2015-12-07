@@ -891,20 +891,20 @@ void drawAll(){
          /*********** ON Z ***********/
 
          // road 1 on z
-         cubex(0.0,0.0,-1.5 , 6.0,0.0,0.5 , 0 , ground , ground , ground , ground , ground , ground, 4 , 0.5,0.5,0.5);
+         cubex(0.4,0.0,-1.5 , 5.6,0.0,0.5 , 0 , ground , ground , ground , ground , ground , ground, 4 , 0.5,0.5,0.5);
 
          // road 2 on z
-         cubex(0.0,0.0,1.5 , 6.0,0.0,0.5 , 0 , ground , ground , ground , ground , ground , ground, 4 , 0.5,0.5,0.5);
+         cubex(0.4,0.0,1.5 , 5.6,0.0,0.5 , 0 , ground , ground , ground , ground , ground , ground, 4 , 0.5,0.5,0.5);
 
          // road 2 on z
-         cubex(0.0,0.0,4.5 , 6.0,0.0,0.5 , 0 , ground , ground , ground , ground , ground , ground, 4 , 0.5,0.5,0.5);
+         cubex(0.4,0.0,4.5 , 5.6,0.0,0.5 , 0 , ground , ground , ground , ground , ground , ground, 4 , 0.5,0.5,0.5);
 
          /*********** ON X ***********/
          // road 1 on x
-         cubey(-4.8,0.002,-1.5 , 0.5,0.002,6.0 , 0 , ground , ground , ground , ground , ground , ground, 4 , 0.5,0.5,0.5);
+         cubey(-4.8,0.002,1.5 , 0.5,0.002,3.5 , 0 , ground , ground , ground , ground , ground , ground, 4 , 0.5,0.5,0.5);
 
          // road 1 on x
-         cubey(6.2,0.002,-1.5 , 0.5,0.002,6.0 , 0 , ground , ground , ground , ground , ground , ground, 4 , 0.5,0.5,0.5);
+         cubey(6.2,0.002,1.5 , 0.5,0.002,3.5 , 0 , ground , ground , ground , ground , ground , ground, 4 , 0.5,0.5,0.5);
 
          // walk way 1
          cubex(0.95,0.002,0.0 , 0.2,0.002,1.0 , 0 , ground , ground , ground , ground , stone_ground , ground, 6 , 0.5,0.5,0.5);
@@ -915,10 +915,10 @@ void drawAll(){
          /* ********************************* PAVEMENT 1  ******************************************/ 
 
          // pavement 1
-         cubex(0.0,-0.1,0.0 , 7.0,0.1,1.0 , 0 , ground , ground , ground , ground , simple_pavement , ground, 20 , 1,1,1);
+         cubex(0.4,-0.1,0.0 , 5.6,0.1,1.0 , 0 , ground , ground , ground , ground , simple_pavement , ground, 20 , 1,1,1);
 
          // pavement 2
-         cubex(0.0,-0.1,3.0 , 7.0,0.1,1.0 , 0 , ground , ground , ground , ground , simple_pavement , ground, 20 , 1,1,1);
+         cubex(0.4,-0.1,3.0 , 5.6,0.1,1.0 , 0 , ground , ground , ground , ground , simple_pavement , ground, 20 , 1,1,1);
 
 
          /* ********************************* ROW 1 OF BUILDINGS **********************************/
