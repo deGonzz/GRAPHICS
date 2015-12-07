@@ -943,11 +943,11 @@ void drawAll(){
          // Medium apartment building
          building7(4.5,-0.5);
          
-         /*
+         
          // High glass office building 
          building8(-0.3,0.0);
          building9(-0.3,0.0);
-         */
+         
          
          // Apartments house
          building10(-1.8, 0.5);
@@ -1466,25 +1466,60 @@ void idle()
    }
 
    if(car_move){
-      car_time = fmod(t,15);
+      car_time = fmod(t,31);
       //  Elapsed time in seconds
       if(car_time>0 && car_time<=5){
-         car_x = 0;
+         car_x = 1;
          car_angle = 0;
-         car_z = -1.0 + car_time/(3.5/2.0);
+         car_z = (221.0/350.0)*car_time - (13.0/10.0);
       }
+      // ANGLE
       if(car_time>5 && car_time<=7){
-         car_angle = 90.0*((car_time-5.0)/2.0);
+         car_angle = 90.0*((car_time-5.0)/2.0); // new car_angle = 90.0*((7.0-5.0)/2.0) = 90
       }
+      // going to x = 6.0
       if(car_time>7 && car_time<=11){
-         car_x = 1.5*car_time-10.5;     
-      }
+         // car_x = 1.5*car_time-10.5;          // new car_x = 1.5*11 - 10.5 = 6.3
+         car_x = (5.0/4.0)*car_time - (31.0/4.0); // car_x = (5.0/4.0)*11 - (31.0/4.0) = 6.0
+      } 
+      // ANGLE to 360 degrees
       if(car_time>11 && car_time<=12){
-         car_angle = 90.0 - 90.0*((car_time-11.0));
+         car_angle = 90.0 - 90.0*((car_time-11.0)); // new car_angle = 90.0 - 90.0*((12-11.0)) = 0 or 360
       }
+      // going to z = 4.3
       if(car_time>12 && car_time<=15){
-         car_z = (57.0/70.0)*car_time-(277.0/35.0);     
+         car_z = (57.0/70.0)*car_time-(277.0/35.0);  // new car_z = (57/70)*15 - (277.0/35.0) = 4.3
       }
+      // ANGLE to 270 degrees
+      if(car_time>15 && car_time<=16){
+         car_angle = (-90.0)*car_time - 1710.0;  // new car_angle = 270
+      }
+      // going to x = -4.5
+      if(car_time>16 && car_time<=19){
+         car_x = (-7.0/2.0)*car_time+(62.0); // new car_x = (-7.0/2.0)*19+(62.0) = -4.5
+      }
+      // ANGLE to 180 degrees
+      if(car_time>19 && car_time<=20){
+         car_angle = (-90.0)*car_time + 1980.0;  // new car_angle = 180
+      }
+      // going to z = -1.3
+      if(car_time>20 && car_time<=25){
+         car_z = (-28.0/25.0)*car_time+(267.0/10.0); // new car_z = (-28.0/25.0)*25+(267.0/10.0) = -1.3
+      }
+      // ANGLE to 90 degrees
+      if(car_time>25 && car_time<=26){
+         car_angle = (-90.0)*car_time + 2430.0;  // new car_angle = 90
+      }
+      // going to x = 1
+      if(car_time>26 && car_time<=30){
+         car_x = (11.0/8.0)*car_time-(161.0/4.0); // new car_x = (11.0/8.0)*30-(161.0/4.0) = 1
+      }
+      // ANGLE to 0 degrees
+      if(car_time>30 && car_time<=31){
+         car_angle = (-90.0)*car_time + 2790.0;  // new car_angle = 0
+      }
+
+
 
       // car_z = Sin(fmod(90*t,360.0));
 
