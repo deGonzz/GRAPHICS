@@ -56,17 +56,28 @@ int specular  =   0;  // Specular intensity (%)
 int shininess =   0;  // Shininess (power of two)
 float shinyvec[1];    // Shininess (value)
 int zh        =  90;  // Light azimuth
+float car_time;
+float ylight  =   0;  // Elevation of light
+
+/*** Car values ***/
+
+// Model 1
 float car_z   =  0;   // z car 1 azimuth
 float car_x   =  0;   // x car 1 azimuth
 int car_angle =  0;   // angle car 1   
-float car_z2   =  0;   // z car 2 azimuth
-float car_x2   =  0;   // x car 1=2 azimuth
-int car_angle2 =  0;   // angle car 2  
-float car_time;
-// float car_time2=;
-float ylight  =   0;  // Elevation of light
 
-// wall textures
+// model2
+float car_z2   =  0;   // z car 2 azimuth
+float car_x2   =  0;   // x car 2 azimuth
+int car_angle2 =  0;   // angle car 2  
+
+// model2
+float car_z3   =  0;   // z car 3 azimuth
+float car_x3   =  0;   // x car 3 azimuth
+int car_angle3 =  0;   // angle car 3  
+
+
+/***** Wall textures *****/
 unsigned int walls;
 unsigned int glass_window;
 unsigned int grey_brick_wall;
@@ -1071,6 +1082,8 @@ void display()
 
    car(car_x,0,car_z, car_angle, ground, 1);
    car(car_x2,0,car_z2, car_angle2, tiles, 1);
+   car(car_x3,0,car_z3, car_angle3, red_wall, 1);
+
 
 
 
@@ -1483,7 +1496,7 @@ void idle()
       /*************************************************************  CAR 1 MOTION ******************************************************/
       // going to z = 1.85714285714 = 26/14 
       if(car_time>0 && car_time<=5){
-         car_x = 1;
+         car_x = 0.8;
          car_angle = 0;
          car_z = (221.0/350.0)*car_time - (13.0/10.0);
       }
@@ -1493,7 +1506,7 @@ void idle()
       }
       // going from x = 1 to x = 6.0 --> dif = 5
       if(car_time>7 && car_time<=11){
-         car_x = (5.0/4.0)*car_time - (31.0/4.0); // car_x = (5.0/4.0)*11 - (31.0/4.0) = 6.0
+         car_x = (13.0/10.0)*car_time - (83.0/10.0); // car_x = (5.0/4.0)*11 - (31.0/4.0) = 6.0
       } 
       // ANGLE from 90 to 0 or 360 degrees
       if(car_time>11 && car_time<=12){
@@ -1575,9 +1588,9 @@ void idle()
       if(car_time>23 && car_time<=24){
          car_angle2 = (-180.0)*car_time + 4410.0;  
       }
-      // going from x = 6 to x = 6.5
+      // going from x = 4.7 to x = 6.5
       if(car_time>24 && car_time<=26){
-         car_x2 = (1.0/4.0)*car_time-(0.0); 
+         car_x2 = (9.0/10.0)*car_time-(169.0/10.0); 
       }
       // ANGLE from 90 to 180 degrees
       if(car_time>26 && car_time<=27){
@@ -1591,6 +1604,77 @@ void idle()
       if(car_time>30 && car_time<=31){
          car_angle2 = (90.0)*car_time - 2520.0;  
       }
+
+      /*************************************************************  CAR 3 MOTION ******************************************************/
+      // going to x = 1 to 6.5 
+      if(car_time>0 && car_time<=4){
+         car_z3 = 4.6;
+         car_angle3 = 90;
+         car_x3 = (11.0/8.0)*car_time + (1);
+      }
+      // ANGLE from 90 to 180
+      if(car_time>4 && car_time<=5){
+         car_angle3 = (90.0)*car_time - 270.0;  
+      }
+      // going to z = 4.6 to 1.3
+      if(car_time>5 && car_time<=8){
+         car_z3 = -(11.0/10.0)*car_time + (101.0/10.0); 
+      } 
+      // ANGLE from 180 to 270 degrees 
+      if(car_time>8 && car_time<=9){
+         car_angle3 = (90.0)*car_time - 540.0; 
+      }
+      // going to x = 6.5 to 1.1
+      if(car_time>9 && car_time<=12.5){
+         car_x3 = -(54.0/35.0)*car_time + (1427.0/70.0);  
+      }
+      // ANGLE from 270 to 180 degrees
+      if(car_time>12.5 && car_time<=13.5){
+         car_angle3 = (-90.0)*car_time + 1395.0;  
+      }
+      // going from z = 1.3 to z = -1.3
+      if(car_time>13.5 && car_time<=18){
+         car_z3 = -(26.0/45.0)*car_time + (91.0/10.0); 
+      }
+      // ANGLE from 180 to 90 degrees
+      if(car_time>18 && car_time<=19){
+         car_angle3 = -(90.0)*car_time + 1800.0; 
+      }
+      // going from x = 1.1 to x = 6
+      if(car_time>19 && car_time<=23){
+         car_x3 = (49.0/40.0)*car_time - (887.0/40.0); 
+      }
+      // ANGLE from 90 to 0 degrees
+      if(car_time>23 && car_time<=24){
+         car_angle3 = (-90.0)*car_time + 2160.0;  
+      }
+      // going from z = -1.3 to x = 1.3
+      if(car_time>24 && car_time<=26.5){
+         car_z3 = (26.0/25.0)*car_time-(1313.0/50.0); 
+      }
+      // ANGLE from 360 to 270 degrees
+      if(car_time>26.5 && car_time<=27){
+         car_angle3 = -(180.0)*car_time + 5130.0;  
+      }
+      // going from x = 6 to x = 1
+      if(car_time>27 && car_time<=28.5){
+         car_x3 = -(10.0/3.0)*car_time + (96.0/1.0); 
+      }
+      // ANGLE from 270 to 360 degrees
+      if(car_time>28.5 && car_time<=29){
+         car_angle3 = (180.0)*car_time - 4860.0;  
+      }
+      // going from z = 1.3 to x = 4.6
+      if(car_time>29 && car_time<=30.5){
+         car_z3 = (11.0/5.0)*car_time-(125.0/2.0); 
+      }
+      // ANGLE from 0 to 90 degrees
+      if(car_time>30.5 && car_time<=31){
+         car_angle3 = (180.0)*car_time - 5490.0;  
+      }
+
+
+
 
       // car_z = Sin(fmod(90*t,360.0));
 
