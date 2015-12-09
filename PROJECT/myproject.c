@@ -469,11 +469,6 @@ static void car(double x,double y,double z, double angle, int car_texture, doubl
 
 static void lightpole(double x,double y,double z, double angle, int lightpole_texture, double car_rep)   
 {
-   int at0=100;      //  Constant  attenuation %
-   int at1=0;        //  Linear    attenuation %
-   int at2=0;        //  Quadratic attenuation %
-   float sco=180;    //  Spot cutoff angle
-   float Exp=0;      //  Spot exponent
    //  Save transformation
    glPushMatrix();
    //  Offset
