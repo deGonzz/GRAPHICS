@@ -36,7 +36,7 @@ int th=0;         //  View angles
 int ph=0;         //  Elevation of view angle
 int fov=25;       //  Field of view (for perspective)
 double asp=1;     //  Aspect ratio
-double dim=10.0;   //  Size of world
+double dim=9.0;   //  Size of world
 int new_angle = 0;
 int light=1;      //  Lighting
 double moveX = 0.0;
@@ -1779,6 +1779,7 @@ void special(int key,int x,int y)
       //  PageDown key - decrease dim
       else if (key == GLUT_KEY_PAGE_DOWN && dim>1)
          dim -= 0.1;
+
       //  Keep angles to +/-360 degrees
       th %= 360;
       ph %= 360;

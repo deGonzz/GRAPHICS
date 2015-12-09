@@ -1,10 +1,18 @@
 Louis BOUDDHOU
-Final Project  
+Final Project: Night rides in the city
 CSCI4229/5229
 
-Time spent to complete assignment: 5 hours
+To run the program:
+    In your terminal, type: "make; ./myproject"
 
-The key bindings are:
+NOTES: 
+    - Building the city was time consumming. I made an effort to not replicate the same building twice so I had to model several types.
+    - Building a simple car was a challenge especially the tires. 
+    - Figuring how to make the car move took a long time. Once that was figured out, I had to find a way to make them ride around in different paths and different time loops. That took quite a while. I wanted to do more cars but was afraid that they might end up crashing into each other.
+    - Trying to figuring out spot lights for lightpoles took the longest time, and I could not quite make it work. Therefore, the shadows on the car are not very accurate. I figured out a way to light up the street using positional light sources.
+
+
+Key bindings are:
   m          Modes (orthogonal, perspective, first person navigation)
   n          Interrupt light movement
   l          Toggle lighting
