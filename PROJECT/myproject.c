@@ -1,7 +1,7 @@
 /*  Louis BOUDDHOU
  *  Final Project
  *
- *  Used class exemple 8, 9, 13 and 15 to help
+ *  Used class exemple 8, 9, 13, 15 and 21 to help
  *
  * 
  *  Key bindings:
@@ -162,92 +162,6 @@ static void Vertex(double th,double ph);
 static void sphere();
 
 
-// /*
-//  *  Draw a cube
-//  *     at (x,y,z)
-//  *     dimentions (dx,dy,dz)
-//  *     rotated th about the y axis
-//  */
-// static void cube(double x,double y,double z,
-//                  double dx,double dy,double dz,
-//                  double th)
-// {
-//    //  Set specular color to white
-//    float white[] = {1,1,1,1};
-//    float Emission[]  = {0.0,0.0,0.01*emission,1.0};
-//    glMaterialfv(GL_FRONT_AND_BACK,GL_SHININESS,shinyvec);
-//    glMaterialfv(GL_FRONT_AND_BACK,GL_SPECULAR,white);
-//    glMaterialfv(GL_FRONT_AND_BACK,GL_EMISSION,Emission);
-//    //  Save transformation
-//    glPushMatrix();
-//    //  Offset, scale and rotate
-//    glTranslated(x,y,z);
-//    glRotated(th,0,1,0);
-//    glScaled(dx,dy,dz);
-//    //  Enable textures
-//    glEnable(GL_TEXTURE_2D);
-//    glTexEnvi(GL_TEXTURE_ENV,GL_TEXTURE_ENV_MODE,tmode?GL_REPLACE:GL_MODULATE);
-//    glColor3f(1,1,1);
-//    //  Front
-//    glBindTexture(GL_TEXTURE_2D,dice[1]);
-//    glBegin(GL_QUADS);
-//    glNormal3f( 0, 0, 1);
-//    glTexCoord2f(0,0); glVertex3f(-1,-1, 1);
-//    glTexCoord2f(1,0); glVertex3f(+1,-1, 1);
-//    glTexCoord2f(1,1); glVertex3f(+1,+1, 1);
-//    glTexCoord2f(0,1); glVertex3f(-1,+1, 1);
-//    glEnd();
-//    //  Back
-//    glBindTexture(GL_TEXTURE_2D,dice[2]);
-//    glBegin(GL_QUADS);
-//    glNormal3f( 0, 0,-1);
-//    glTexCoord2f(0,0); glVertex3f(+1,-1,-1);
-//    glTexCoord2f(1,0); glVertex3f(-1,-1,-1);
-//    glTexCoord2f(1,1); glVertex3f(-1,+1,-1);
-//    glTexCoord2f(0,1); glVertex3f(+1,+1,-1);
-//    glEnd();
-//    //  Right
-//    glBindTexture(GL_TEXTURE_2D,dice[3]);
-//    glBegin(GL_QUADS);
-//    glNormal3f(+1, 0, 0);
-//    glTexCoord2f(0,0); glVertex3f(+1,-1,+1);
-//    glTexCoord2f(1,0); glVertex3f(+1,-1,-1);
-//    glTexCoord2f(1,1); glVertex3f(+1,+1,-1);
-//    glTexCoord2f(0,1); glVertex3f(+1,+1,+1);
-//    glEnd();
-
-//    //  Left
-//    glBindTexture(GL_TEXTURE_2D,dice[4]);
-//    glBegin(GL_QUADS);
-//    glNormal3f(-1, 0, 0);
-//    glTexCoord2f(0,0); glVertex3f(-1,-1,-1);
-//    glTexCoord2f(1,0); glVertex3f(-1,-1,+1);
-//    glTexCoord2f(1,1); glVertex3f(-1,+1,+1);
-//    glTexCoord2f(0,1); glVertex3f(-1,+1,-1);
-//    glEnd();
-//    //  Top
-//    glBindTexture(GL_TEXTURE_2D,dice[5]);
-//    glBegin(GL_QUADS);
-//    glNormal3f( 0,+1, 0);
-//    glTexCoord2f(0,0); glVertex3f(-1,+1,+1);
-//    glTexCoord2f(1,0); glVertex3f(+1,+1,+1);
-//    glTexCoord2f(1,1); glVertex3f(+1,+1,-1);
-//    glTexCoord2f(0,1); glVertex3f(-1,+1,-1);
-//    glEnd();
-//    //  Bottom
-//    glBindTexture(GL_TEXTURE_2D,dice[0]);
-//    glBegin(GL_QUADS);
-//    glNormal3f( 0,-1, 0);
-//    glTexCoord2f(0,0); glVertex3f(-1,-1,-1);
-//    glTexCoord2f(1,0); glVertex3f(+1,-1,-1);
-//    glTexCoord2f(1,1); glVertex3f(+1,-1,+1);
-//    glTexCoord2f(0,1); glVertex3f(-1,-1,+1);
-//    glEnd();
-//    //  Undo transformations and textures
-//    glPopMatrix();
-//    glDisable(GL_TEXTURE_2D);
-// }
-
 
 static void cubex(double x,double y,double z,
                  double dx,double dy,double dz,
@@ -264,8 +178,6 @@ static void cubex(double x,double y,double z,
    //  Set specular color to white
    float white[] = {1,1,1,1};
    float Emission[]  = {0.001*emission,0.001*emission,0.001*emission,1.0};
-   // float Emission[]  = {0,0,0 ,1.0};
-
    glMaterialfv(GL_FRONT_AND_BACK,GL_SHININESS,shinyvec);
    glMaterialfv(GL_FRONT_AND_BACK,GL_SPECULAR,white);
    glMaterialfv(GL_FRONT_AND_BACK,GL_EMISSION,Emission);
@@ -277,7 +189,6 @@ static void cubex(double x,double y,double z,
    glScaled(dx,dy,dz);
    //  Enable textures
    glEnable(GL_TEXTURE_2D);
-   // glTexEnvi(GL_TEXTURE_ENV,GL_TEXTURE_ENV_MODE,tmode?GL_REPLACE:GL_MODULATE);
    glTexEnvi(GL_TEXTURE_ENV,GL_TEXTURE_ENV_MODE,GL_MODULATE);
 
    glColor3f(myR,myG,myB);
@@ -370,7 +281,6 @@ static void cubey(double x,double y,double z,
    glScaled(dx,dy,dz);
    //  Enable textures
    glEnable(GL_TEXTURE_2D);
-   // glTexEnvi(GL_TEXTURE_ENV,GL_TEXTURE_ENV_MODE,tmode?GL_REPLACE:GL_MODULATE);
    glTexEnvi(GL_TEXTURE_ENV,GL_TEXTURE_ENV_MODE,GL_MODULATE);
 
    glColor3f(myR,myG,myB);
@@ -487,8 +397,6 @@ static void sphere2(double x,double y,double z,
    int th,ph;
    float yellow[] = {1.0,1.0,0.0,1.0};
    float Emission[]  = {0.001*emission,0.001*emission,0.001*emission,1.0};
-   // float Emission[]  = {0,0,0 ,1.0};
-
    //  Save transformation
    glPushMatrix();
    //  Offset and scale
@@ -578,13 +486,6 @@ static void lightpole(double x,double y,double z, double angle, int lightpole_te
 
    cylinder(0,0,0,0.2, 10, lightpole_texture, 1);
    cubex(0.0,10,1.0 , 0.4,0.1,1.5 , 0 , concrete_wall , concrete_wall , concrete_wall , concrete_wall , concrete_wall , concrete_wall, 1 , 1,1,1);
-
-   // //debugging elements
-   // cubex(0.0,0.1,2.5 , 5.0,0.1,5.0 , 0 , walls , walls , walls , walls , walls , walls, 1 , 1,1,1);
-   // cylinder(0,0,4,0.2, 10, lightpole_texture, 1);
-   // cylinder(-2,0,2,0.2, 10, lightpole_texture, 1);
-   // cylinder(2,0,2,0.2, 10, lightpole_texture, 1);
-
    glPopMatrix();
    glDisable(GL_TEXTURE_2D);
 
@@ -653,8 +554,7 @@ static void streetLight(float x, float y, float z, float angle) {
       glLightf(GL_LIGHT7,GL_LINEAR_ATTENUATION   ,at1/100.0);
       glLightf(GL_LIGHT7,GL_QUADRATIC_ATTENUATION,at2/100.0);
    }
-   // else
-   //    glDisable(GL_LIGHTING);
+
 
    glScaled(1,1.4,1);
    glTranslated(5,0,0);
@@ -816,24 +716,6 @@ static void house(double x,double y,double z,
       glTexCoord2f((rep + rep/2),0); glVertex3f(-1,1,-1);
       glTexCoord2f(rep,rep); glVertex3f(0,2.3,0);  
       glEnd();    
-
-   // Building door and windows
-   // glBegin(GL_QUADS);
-   //    // 944C009 Front door
-   //    glColor3f(153/255.0, 76/255.0, 0.0);
-   //    glNormal3f(0,1,2.3);
-   //    glVertex3f(0.8,-1,1.01);
-   //    glVertex3f(0.8,0.5,1.01);
-   //    glVertex3f(0.2,0.5,1.01);
-   //    glVertex3f(0.2,-1,1.01);
-
-   //    // 944C009 Right window
-   //    glColor3f(0.0, 191/255.0, 1.0);
-   //    glNormal3f(+1, 0, 0);
-   //    glVertex3f(1.01,0.5,0.8);
-   //    glVertex3f(1.01,0.5,-0.8);
-   //    glVertex3f(1.01,-0.1,-0.8);
-   //    glVertex3f(1.01,-0.1,0.8);
    
    glPopMatrix();
    glDisable(GL_TEXTURE_2D);
@@ -917,29 +799,8 @@ static void house2(double x,double y,double z,
       glTexCoord2f(0,rep); glVertex3f(-1,-1,+1);
       glEnd();
 
-   //glEnd();
-
    glBindTexture(GL_TEXTURE_2D,tiles);
-   // Building Rooftop
-    
 
-   // Building door and windows
-   // glBegin(GL_QUADS);
-   //    // 944C009 Front door
-   //    glColor3f(153/255.0, 76/255.0, 0.0);
-   //    glNormal3f(0,1,2.3);
-   //    glVertex3f(0.8,-1,1.01);
-   //    glVertex3f(0.8,0.5,1.01);
-   //    glVertex3f(0.2,0.5,1.01);
-   //    glVertex3f(0.2,-1,1.01);
-
-   //    // 944C009 Right window
-   //    glColor3f(0.0, 191/255.0, 1.0);
-   //    glNormal3f(+1, 0, 0);
-   //    glVertex3f(1.01,0.5,0.8);
-   //    glVertex3f(1.01,0.5,-0.8);
-   //    glVertex3f(1.01,-0.1,-0.8);
-   //    glVertex3f(1.01,-0.1,0.8);
    glEnd();
    
    glPopMatrix();
@@ -971,7 +832,6 @@ static void sphere(double x,double y,double z,
    const int d=5;
    int th,ph;
    float yellow[] = {1.0,1.0,0.0,1.0};
-   // float Emission[]  = {0.01*emission,0.01*emission,0.01*emission,1.0};
    float Emission[]  = {0,0,0 ,1.0};
 
    //  Save transformation
@@ -1123,23 +983,6 @@ void drawCity(){
          // Very high long office building
          building26(4.05,3.0);
          
-
-
-
-         /*
-            **************************** GROUND PLANE (TEXTURE NOT WORKING) *******************************************
-         */
-         // cubex(0.3,0.01,0.3 , 20.0,0.01,20.0 , 0 , ground , ground , ground , ground , ground , ground , 5);
-
-         // house(3.6,0.3,0.0 , 0.3,0.3,0.3 , 0, 0);
-
-         // house(4.3,0.3,0.0 , 0.3,0.3,0.3 , 0, 0);
-
-
-         // // The the sun
-         // sphere(1.0,100.0,1.0,0.3 , 0.3,0.3,0.3);
-
-         
 }
 
 void drawConstructFences(){
@@ -1214,71 +1057,9 @@ void drawCars(){
    car(car_x3,0,car_z3, car_angle3, red_wall, 1);
    car(car_x4,0,car_z4, car_angle4, concrete_wall, 1);
    car(car_x5,0,car_z5, car_angle5, tiles, 1);
-   //  Light switch
-   // if (light)
-   // {
-   //      //  Translate intensity to color vectors
-   //      float Ambient[]   = {0.01*ambient ,0.01*ambient ,0.01*ambient ,1.0};
-   //      float Diffuse[]   = {0.01*diffuse ,0.01*diffuse ,0.01*diffuse ,1.0};
-   //      float Specular[]  = {0.01*specular,0.01*specular,0.01*specular,1.0};
-   //      //  Light position
-   //      float Position2[]  = {car_x,0.2,car_z,1.0};
-   //      float Position3[]  = {car_x2,0.2,car_z2,1.0};
-   //      float Position4[]  = {car_x3,0.2,car_z3,1.0};
-   //      float Position5[]  = {car_x4,0.2,car_z4,1.0};
-   //      float Position6[]  = {car_x5,0.2,car_z5,1.0};
-   //      //  Draw light position as sphere (still no lighting here)
-   //      glColor3f(1,1,1);
-   //      // sphere(Position[0],Position[1],Position[2],0.1 , 0.1,0.1,0.1);
-   //      //  OpenGL should normalize normal vectors
-   //      glEnable(GL_NORMALIZE);
-   //      //  Enable lighting
-   //      glEnable(GL_LIGHTING);
-   //      //  Location of viewer for specular calculations
-   //      glLightModeli(GL_LIGHT_MODEL_LOCAL_VIEWER,local);
-   //      //  glColor sets ambient and diffuse color materials
-   //      glColorMaterial(GL_FRONT_AND_BACK,GL_AMBIENT_AND_DIFFUSE);
-   //      glEnable(GL_COLOR_MATERIAL);
-   //      //  Enable light 0
-   //      glEnable(GL_LIGHT2);
-   //      //  Set ambient, diffuse, specular components and position of light 0
-   //      glLightfv(GL_LIGHT2,GL_AMBIENT ,Ambient);
-   //      glLightfv(GL_LIGHT2,GL_DIFFUSE ,Diffuse);
-   //      glLightfv(GL_LIGHT2,GL_SPECULAR,Specular);
-   //      glLightfv(GL_LIGHT2,GL_POSITION,Position2);
-   //      //  Enable light 0
-   //      glEnable(GL_LIGHT3);
-   //      //  Set ambient, diffuse, specular components and position of light 0
-   //      glLightfv(GL_LIGHT3,GL_AMBIENT ,Ambient);
-   //      glLightfv(GL_LIGHT3,GL_DIFFUSE ,Diffuse);
-   //      glLightfv(GL_LIGHT3,GL_SPECULAR,Specular);
-   //      glLightfv(GL_LIGHT3,GL_POSITION,Position3);
-   //      //  Enable light 0
-   //      glEnable(GL_LIGHT4);
-   //      //  Set ambient, diffuse, specular components and position of light 0
-   //      glLightfv(GL_LIGHT4,GL_AMBIENT ,Ambient);
-   //      glLightfv(GL_LIGHT4,GL_DIFFUSE ,Diffuse);
-   //      glLightfv(GL_LIGHT4,GL_SPECULAR,Specular);
-   //      glLightfv(GL_LIGHT4,GL_POSITION,Position4);
-   //      //  Enable light 0
-   //      glEnable(GL_LIGHT5);
-   //      //  Set ambient, diffuse, specular components and position of light 0
-   //      glLightfv(GL_LIGHT5,GL_AMBIENT ,Ambient);
-   //      glLightfv(GL_LIGHT5,GL_DIFFUSE ,Diffuse);
-   //      glLightfv(GL_LIGHT5,GL_SPECULAR,Specular);
-   //      glLightfv(GL_LIGHT5,GL_POSITION,Position5);
-   //      //  Enable light 0
-   //      glEnable(GL_LIGHT6);
-   //      //  Set ambient, diffuse, specular components and position of light 0
-   //      glLightfv(GL_LIGHT6,GL_AMBIENT ,Ambient);
-   //      glLightfv(GL_LIGHT6,GL_DIFFUSE ,Diffuse);
-   //      glLightfv(GL_LIGHT6,GL_SPECULAR,Specular);
-   //      glLightfv(GL_LIGHT6,GL_POSITION,Position6);
-   // }
-   // else
-   //   glDisable(GL_LIGHTING);
 
 }
+
 /*
  *  OpenGL (GLUT) calls this routine to display the scene
  */
@@ -1318,55 +1099,6 @@ void display()
    //  Flat or smooth shading
    glShadeModel(smooth ? GL_SMOOTH : GL_FLAT);
 
-
-
-   /* REVOLVING LIGHT STARTS HERE */
-
-   // //  Light switch
-   // if (light)
-   // {
-   //      //  Translate intensity to color vectors
-   //      float Ambient[]   = {0.01*ambient ,0.01*ambient ,0.01*ambient ,1.0};
-   //      float Diffuse[]   = {0.01*diffuse ,0.01*diffuse ,0.01*diffuse ,1.0};
-   //      float Specular[]  = {0.01*specular,0.01*specular,0.01*specular,1.0};
-   //      //  Light position
-   //      float Position[]  = {distance*Cos(zh),ylight,distance*Sin(zh),1.0};
-   //      //  Draw light position as sphere (still no lighting here)
-   //      glColor3f(1,1,1);
-   //      sphere(Position[0],Position[1],Position[2],0.1 , 0.1,0.1,0.1);
-   //      //  OpenGL should normalize normal vectors
-   //      glEnable(GL_NORMALIZE);
-   //      //  Enable lighting
-   //      glEnable(GL_LIGHTING);
-   //      //  Location of viewer for specular calculations
-   //      glLightModeli(GL_LIGHT_MODEL_LOCAL_VIEWER,local);
-   //      //  glColor sets ambient and diffuse color materials
-   //      glColorMaterial(GL_FRONT_AND_BACK,GL_AMBIENT_AND_DIFFUSE);
-   //      glEnable(GL_COLOR_MATERIAL);
-   //      //  Enable light 0
-   //      glEnable(GL_LIGHT0);
-   //      //  Set ambient, diffuse, specular components and position of light 0
-   //      glLightfv(GL_LIGHT0,GL_AMBIENT ,Ambient);
-   //      glLightfv(GL_LIGHT0,GL_DIFFUSE ,Diffuse);
-   //      glLightfv(GL_LIGHT0,GL_SPECULAR,Specular);
-   //      glLightfv(GL_LIGHT0,GL_POSITION,Position);
-   // }
-   // else
-   //   glDisable(GL_LIGHTING);
-
-   /* REVOLVING LIGHT ENDS HERE */
-
-   // glPushMatrix();
-   // glTranslated(0,0,0.99);
-   // glScaled(0.005,0.005,0.005);
-   // lightpole(0,0,0.99, 0, concrete_wall, 1);
-   // lightpole(0.5,0,0.99, 0, concrete_wall, 1);
-   // lightpole(1,0,0.99, 0, concrete_wall, 1);
-   // glPopMatrix();
-   // roadPiece(0,0,1);
-
-   
-
    // Right street
    roadPiece(4.3,-0.1,-2);
    roadPiece(1.5,-0.1,-2);
@@ -1390,11 +1122,6 @@ void display()
    drawCars();
    // drawConstructFences();
 
-   /******************************************** ACTUAL CAR IS HERE ********************************************/
-
-   // car(0, 0, 0, 0);
-
-   /******************************************** NO CAR AFTER THIS ********************************************/
         
    //  Draw axes - no lighting from here on
    // glDisable(GL_LIGHTING);
