@@ -29,12 +29,12 @@
 int tmode=0;      //  Texture Mode
 int mode=0;       //  Display mode
 int axes=0;       //  Display axes
-int proj_mode=0;       //  Projection mode
-int move=1;       //  Move lighting
+int proj_mode=0;  //  Projection mode
+int move=1;       //  Move lighting             
 int car_move=1;   //  Move Car
-int th=0;         //  Azimuth of view angle
+int th=0;         //  View angles        
 int ph=0;         //  Elevation of view angle
-int fov=55;       //  Field of view (for perspective)
+int fov=25;       //  Field of view (for perspective)
 double asp=1;     //  Aspect ratio
 double dim=10.0;   //  Size of world
 int new_angle = 0;
@@ -44,19 +44,22 @@ double moveZ = 0.0;
 double y_pos = 0.0;
 
 // Light values
+int num       =   100;  // Number of quads
 int one       =   1;  // Unit value
 int distance  =   5;  // Light distance
 int inc       =  10;  // Ball increment
 int smooth    =   1;  // Smooth/Flat shading
 int local     =   0;  // Local Viewer Model
 int emission  =   0;  // Emission intensity (%)
-int ambient   =  30;  // Ambient intensity (%)
-int diffuse   = 100;  // Diffuse intensity (%)
-int specular  =   0;  // Specular intensity (%)
+int ambient   =  20;  // Ambient intensity (%)
+int diffuse   = 10;  // Diffuse intensity (%)
+int specular  =   10;  // Specular intensity (%)
 int shininess =   0;  // Shininess (power of two)
 float shinyvec[1];    // Shininess (value)
 int zh        =  90;  // Light azimuth
+int pole_light = 90;
 float ylight  =   0;  // Elevation of light
+float ypolelight = 10; // Elevation pole light
 
 /*** Car values ***/
 float car_time;
@@ -156,6 +159,7 @@ static void building28(float x, float z);
 static void building29(float x, float z);
 static void building30(float x, float z);
 static void Vertex(double th,double ph);
+static void sphere();
 
 
 // /*
@@ -259,7 +263,9 @@ static void cubex(double x,double y,double z,
 {
    //  Set specular color to white
    float white[] = {1,1,1,1};
-   float Emission[]  = {0.0,0.0,0.01*emission,1.0};
+   float Emission[]  = {0.001*emission,0.001*emission,0.001*emission,1.0};
+   // float Emission[]  = {0,0,0 ,1.0};
+
    glMaterialfv(GL_FRONT_AND_BACK,GL_SHININESS,shinyvec);
    glMaterialfv(GL_FRONT_AND_BACK,GL_SPECULAR,white);
    glMaterialfv(GL_FRONT_AND_BACK,GL_EMISSION,Emission);
@@ -271,7 +277,9 @@ static void cubex(double x,double y,double z,
    glScaled(dx,dy,dz);
    //  Enable textures
    glEnable(GL_TEXTURE_2D);
-   glTexEnvi(GL_TEXTURE_ENV,GL_TEXTURE_ENV_MODE,tmode?GL_REPLACE:GL_MODULATE);
+   // glTexEnvi(GL_TEXTURE_ENV,GL_TEXTURE_ENV_MODE,tmode?GL_REPLACE:GL_MODULATE);
+   glTexEnvi(GL_TEXTURE_ENV,GL_TEXTURE_ENV_MODE,GL_MODULATE);
+
    glColor3f(myR,myG,myB);
    //  Front
    glBindTexture(GL_TEXTURE_2D,front_texture);
@@ -348,7 +356,9 @@ static void cubey(double x,double y,double z,
 {
    //  Set specular color to white
    float white[] = {1,1,1,1};
-   float Emission[]  = {0.0,0.0,0.01*emission,1.0};
+   float Emission[]  = {0.001*emission,0.001*emission,0.001*emission,1.0};
+   // float Emission[]  = {0,0,0 ,1.0};
+
    glMaterialfv(GL_FRONT_AND_BACK,GL_SHININESS,shinyvec);
    glMaterialfv(GL_FRONT_AND_BACK,GL_SPECULAR,white);
    glMaterialfv(GL_FRONT_AND_BACK,GL_EMISSION,Emission);
@@ -360,7 +370,9 @@ static void cubey(double x,double y,double z,
    glScaled(dx,dy,dz);
    //  Enable textures
    glEnable(GL_TEXTURE_2D);
-   glTexEnvi(GL_TEXTURE_ENV,GL_TEXTURE_ENV_MODE,tmode?GL_REPLACE:GL_MODULATE);
+   // glTexEnvi(GL_TEXTURE_ENV,GL_TEXTURE_ENV_MODE,tmode?GL_REPLACE:GL_MODULATE);
+   glTexEnvi(GL_TEXTURE_ENV,GL_TEXTURE_ENV_MODE,GL_MODULATE);
+
    glColor3f(myR,myG,myB);
    //  Front
    glBindTexture(GL_TEXTURE_2D,front_texture);
@@ -427,7 +439,9 @@ static void cylinder(double x,double y,double z,double r, double h, int cylinder
    const int d=5;
    int th;
    float yellow[] = {1.0,1.0,0.0,1.0};
-   float Emission[]  = {0.0,0.0,0.01*emission,1.0};
+   float Emission[]  = {0.001*emission,0.001*emission,0.001*emission,1.0};
+   // float Emission[]  = {0,0,0 ,1.0};
+
    //  Save transformation
    glPushMatrix();
    //  Offset and scale
@@ -472,7 +486,8 @@ static void sphere2(double x,double y,double z,
    const int d=5;
    int th,ph;
    float yellow[] = {1.0,1.0,0.0,1.0};
-   float Emission[]  = {0.0,0.0,0.01*emission,1.0};
+   float Emission[]  = {0.001*emission,0.001*emission,0.001*emission,1.0};
+   // float Emission[]  = {0,0,0 ,1.0};
 
    //  Save transformation
    glPushMatrix();
@@ -535,6 +550,7 @@ static void car(double x,double y,double z, double angle, int car_texture, doubl
    tire(-0.13,0.06,0.17,0.06,0.04,tiles);
    tire(-0.13,0.06,-0.17,0.06,0.04,tiles);
 
+   
 
    glPopMatrix();
    glDisable(GL_TEXTURE_2D);
@@ -542,6 +558,138 @@ static void car(double x,double y,double z, double angle, int car_texture, doubl
 }  
 
 
+
+static void lightpole(double x,double y,double z, double angle, int lightpole_texture, double car_rep)   
+{
+   int at0=100;      //  Constant  attenuation %
+   int at1=0;        //  Linear    attenuation %
+   int at2=0;        //  Quadratic attenuation %
+   float sco=180;    //  Spot cutoff angle
+   float Exp=0;      //  Spot exponent
+   //  Save transformation
+   glPushMatrix();
+   //  Offset
+   glTranslated(x,y,z);
+   glScaled(0.1,0.1,0.1);
+   glRotated(angle,0,1,0);
+   //  Light switch
+
+   glTexEnvi(GL_TEXTURE_ENV,GL_TEXTURE_ENV_MODE,GL_MODULATE);
+
+   cylinder(0,0,0,0.2, 10, lightpole_texture, 1);
+   cubex(0.0,10,1.0 , 0.4,0.1,1.5 , 0 , concrete_wall , concrete_wall , concrete_wall , concrete_wall , concrete_wall , concrete_wall, 1 , 1,1,1);
+
+   // //debugging elements
+   // cubex(0.0,0.1,2.5 , 5.0,0.1,5.0 , 0 , walls , walls , walls , walls , walls , walls, 1 , 1,1,1);
+   // cylinder(0,0,4,0.2, 10, lightpole_texture, 1);
+   // cylinder(-2,0,2,0.2, 10, lightpole_texture, 1);
+   // cylinder(2,0,2,0.2, 10, lightpole_texture, 1);
+
+   glPopMatrix();
+   glDisable(GL_TEXTURE_2D);
+
+
+}  
+
+
+
+static void streetLight(float x, float y, float z, float angle) {
+   glPushMatrix();
+   glTranslated(x,y+0.1,z);
+   glScaled(0.1,0.1,0.1);
+   glRotated(angle,0,1,0);
+   lightpole(0,0,0, 0, concrete_wall, 1);
+
+   glRotated(-90,0,1,0);
+   glRotated(90,1,0,0);
+   int Th=0,Ph=30;   //  Light angles
+   int i,j;
+   double mul = 2.0/num;
+   int at0=100;      //  Constant  attenuation %
+   int at1=0;        //  Linear    attenuation %
+   int at2=0;        //  Quadratic attenuation %
+   float sco=180;    //  Spot cutoff angle
+   float Exp=0;      //  Spot exponent
+   float Position[] = {0+Cos(Th),0+Sin(Th),1,1};
+   //  Light switch
+   if (light)
+   {
+      //  Translate intensity to color vectors
+      float Ambient[]   = {0.0*ambient ,0.0*ambient ,0.0*ambient ,1.0};
+      float Diffuse[]   = {0.1*diffuse ,0.1*diffuse ,0.1*diffuse ,1.0};
+      float Specular[]  = {0.01*specular,0.01*specular,0.01*specular,1.0};
+      //  Spotlight color and direction
+      float yellow[] = {1.0,1.0,0.0,1.0};
+      float Direction[] = {Cos(Th)*Sin(Ph),Sin(Th)*Sin(Ph),-Cos(Ph),0};
+      //  Draw light position as ball (still no lighting here)
+      sphere(Position[0],Position[1],Position[2] , 0.1);
+      //  OpenGL should normalize normal vectors
+      glEnable(GL_NORMALIZE);
+      //  Enable lighting
+      glEnable(GL_LIGHTING);
+      //  Location of viewer for specular calculations
+      glLightModeli(GL_LIGHT_MODEL_LOCAL_VIEWER,local);
+      //  Two sided mode
+      glLightModeli(GL_LIGHT_MODEL_TWO_SIDE,0);
+      //  glColor sets ambient and diffuse color materials
+      glColorMaterial(GL_FRONT_AND_BACK,GL_AMBIENT_AND_DIFFUSE);
+      glEnable(GL_COLOR_MATERIAL);
+      //  Set specular colors
+      glMaterialfv(GL_FRONT,GL_SPECULAR,yellow);
+      glMaterialfv(GL_FRONT,GL_SHININESS,shinyvec);
+      //  Enable light 0
+      glEnable(GL_LIGHT7);
+      //  Set ambient, diffuse, specular components and position of light 0
+      glLightfv(GL_LIGHT7,GL_AMBIENT ,Ambient);
+      glLightfv(GL_LIGHT7,GL_DIFFUSE ,Diffuse);
+      glLightfv(GL_LIGHT7,GL_SPECULAR,Specular);
+      glLightfv(GL_LIGHT7,GL_POSITION,Position);
+      //  Set spotlight parameters
+      glLightfv(GL_LIGHT7,GL_SPOT_DIRECTION,Direction);
+      glLightf(GL_LIGHT7,GL_SPOT_CUTOFF,sco);
+      glLightf(GL_LIGHT7,GL_SPOT_EXPONENT,Exp);
+      //  Set attenuation
+      glLightf(GL_LIGHT7,GL_CONSTANT_ATTENUATION ,at0/100.0);
+      glLightf(GL_LIGHT7,GL_LINEAR_ATTENUATION   ,at1/100.0);
+      glLightf(GL_LIGHT7,GL_QUADRATIC_ATTENUATION,at2/100.0);
+   }
+   // else
+   //    glDisable(GL_LIGHTING);
+
+   glScaled(1,1.4,1);
+   glTranslated(5,0,0);
+   glRotated(90,0,0,1);
+   //  Enable textures
+   glEnable(GL_TEXTURE_2D);
+   glTexEnvi(GL_TEXTURE_ENV,GL_TEXTURE_ENV_MODE,GL_MODULATE);
+   glBindTexture(GL_TEXTURE_2D, ground);
+   //  Draw the wall
+   glColor3f(1.0,1.0,1.0);
+   glNormal3f(0,0,1); 
+   glBegin(GL_QUADS);
+   for (i=0;i<num;i++)
+      for (j=0;j<num;j++)
+      {
+         glTexCoord2d(mul*(i+0),mul*(j+0)); glVertex2d(5*mul*(i+0)-5,5*mul*(j+0)-5);
+         glTexCoord2d(mul*(i+1),mul*(j+0)); glVertex2d(5*mul*(i+1)-5,5*mul*(j+0)-5);
+         glTexCoord2d(mul*(i+1),mul*(j+1)); glVertex2d(5*mul*(i+1)-5,5*mul*(j+1)-5);
+         glTexCoord2d(mul*(i+0),mul*(j+1)); glVertex2d(5*mul*(i+0)-5,5*mul*(j+1)-5);
+      }
+   glEnd();
+   glDisable(GL_TEXTURE_2D);
+   glPopMatrix();
+}
+
+
+static void roadPiece(float x, float y, float z){
+   glPushMatrix();
+   glTranslated(x-0.7,y,z);
+   streetLight(0,0,0,0);
+   glTranslated(1.4,0,1.0);
+   glRotated(180,0,1,0);
+   streetLight(0,0,0,0);
+   glPopMatrix();
+}
 
 /*
    Draw a house1
@@ -823,7 +971,8 @@ static void sphere(double x,double y,double z,
    const int d=5;
    int th,ph;
    float yellow[] = {1.0,1.0,0.0,1.0};
-   float Emission[]  = {0.0,0.0,0.01*emission,1.0};
+   // float Emission[]  = {0.01*emission,0.01*emission,0.01*emission,1.0};
+   float Emission[]  = {0,0,0 ,1.0};
 
    //  Save transformation
    glPushMatrix();
@@ -853,65 +1002,8 @@ static void sphere(double x,double y,double z,
 }
 
 
-void drawAll(){
-    /*
-            FENCE WALLS ON X
-         */
-         // x = -8
-         cubex(-8.0,0.05,0.0 , 0.01,0.05,10 , 0 , ground , ground , ground , ground , ground , ground, 1 , 1,1,1);
-
-         // x = -6
-         cubex(-6.0,0.05,0.0 , 0.01,0.05,10 , 0 , ground , ground , ground , ground , ground , ground, 1 , 1,1,1);
-
-         // x = -4
-         cubex(-4.0,0.05,0.0 , 0.01,0.05,10 , 0 , ground , ground , ground , ground , ground , ground, 1 , 1,1,1);
-
-         // x = -2
-         cubex(-2.0,0.05,0.0 , 0.01,0.05,10 , 0 , ground , ground , ground , ground , ground , ground, 1 , 1,1,1);
-
-         /*
-         // x = 0
-         cubex(0.0,0.2,0.0 , 0.01,0.2,10 , 0 , ground , ground , ground , ground , ground , ground, 1 , 1,1,1);
-         */
-
-         // x = 2
-         cubex(2.0,0.05,0.0 , 0.01,0.05,10 , 0 , ground , ground , ground , ground , ground , ground, 1 , 1,1,1);
-
-         // x = 4
-         cubex(4.0,0.05,0.0 , 0.01,0.05,10 , 0 , ground , ground , ground , ground , ground , ground, 1 , 1,1,1);
-
-         // // x = 6
-         // cubex(6.0,0.05,0.0 , 0.01,0.05,10 , 0 , ground , ground , ground , ground , ground , ground, 1 , 1,1,1);
-
-         // x = 8
-         cubex(8.0,0.05,0.0 , 0.01,0.05,10 , 0 , ground , ground , ground , ground , ground , ground, 1 , 1,1,1);
-
-         /*
-            FENCE WALLS ON z
-         */
-         // x = -4
-         cubex(0.0,0.2,-4.0 , 10,0.05,0.005 , 0 , ground , ground , ground , ground , ground , ground, 1 , 1,1,1);
-
-         // x = -2
-         cubex(0.0,0.0025,-2.0 , 10,0.0025,0.005 , 0 , ground , ground , ground , ground , ground , ground, 1 , 1,1,1);
-
-         // x = -1
-         cubex(0.0,0.0025,-1.0 , 10,0.0025,0.005 , 0 , ground , ground , ground , ground , ground , ground, 1 , 1,1,1);
-
-         // z = 1
-         cubex(0.0,0.0025,+1.0 , 10,0.0025,0.005 , 0 , ground , ground , ground , ground , ground , ground, 1 , 1,1,1);
-
-         // x = 2
-         cubex(0.0,0.0025,+2.0 , 10,0.0025,0.005 , 0 , ground , ground , ground , ground , ground , ground, 1 , 1,1,1);
-
-         // x = 4
-         cubex(0.0,0.0025,+4.0 , 10,0.0025,0.005 , 0 , ground , ground , ground , ground , ground , ground, 1 , 1,1,1);
-
-         // x = 5
-         cubex(0.0,0.0025,+5.0 , 10,0.0025,0.005 , 0 , ground , ground , ground , ground , ground , ground, 1 , 1,1,1);
-
-         // x = 7
-         cubex(0.0,0.0025,+7.0 , 10,0.0025,0.005 , 0 , ground , ground , ground , ground , ground , ground, 1 , 1,1,1);
+void drawCity(){
+        
 
          
          /* ********************************* STREET 1  ******************************************/ 
@@ -919,26 +1011,26 @@ void drawAll(){
          /*********** ON Z ***********/
 
          // road 1 on z
-         cubex(0.4,0.0,-1.5 , 5.6,0.0,0.5 , 0 , ground , ground , ground , ground , ground , ground, 4 , 0.5,0.5,0.5);
+         cubex(0.4,-0.001,-1.5 , 5.6,0.0,0.5 , 0 , ground , ground , ground , ground , ground , ground, 4 , 0.5,0.5,0.5);
+
+         // // road 2 on z
+         cubex(0.4,-0.001,1.5 , 5.6,0.0,0.5 , 0 , ground , ground , ground , ground , ground , ground, 4 , 0.5,0.5,0.5);
 
          // road 2 on z
-         cubex(0.4,0.0,1.5 , 5.6,0.0,0.5 , 0 , ground , ground , ground , ground , ground , ground, 4 , 0.5,0.5,0.5);
-
-         // road 2 on z
-         cubex(0.4,0.0,4.5 , 5.6,0.0,0.5 , 0 , ground , ground , ground , ground , ground , ground, 4 , 0.5,0.5,0.5);
+         cubex(0.4,-0.001,4.5 , 5.6,0.0,0.5 , 0 , ground , ground , ground , ground , ground , ground, 4 , 0.5,0.5,0.5);
 
          /*********** ON X ***********/
          // road 1 on x
-         cubey(-4.8,0.002,1.5 , 0.5,0.002,3.5 , 0 , ground , ground , ground , ground , ground , ground, 4 , 0.5,0.5,0.5);
+         cubey(-4.8,0.00099,1.5 , 0.5,0.0,3.5 , 0 , ground , ground , ground , ground , ground , ground, 4 , 0.5,0.5,0.5);
 
          // road 1 on x
-         cubey(6.2,0.002,1.5 , 0.5,0.002,3.5 , 0 , ground , ground , ground , ground , ground , ground, 4 , 0.5,0.5,0.5);
+         cubey(6.2,0.00099,1.5 , 0.5,0.0,3.5 , 0 , ground , ground , ground , ground , ground , ground, 4 , 0.5,0.5,0.5);
 
          // walk way 1
-         cubex(0.95,0.002,0.0 , 0.2,0.002,1.0 , 0 , ground , ground , ground , ground , stone_ground , ground, 6 , 0.5,0.5,0.5);
+         cubex(0.95,0.001,0.0 , 0.2,0.002,1.0 , 0 , ground , ground , ground , ground , stone_ground , ground, 6 , 0.5,0.5,0.5);
 
          // walk way 2
-         cubex(0.95,0.002,3.0 , 0.2,0.002,1.0 , 0 , ground , ground , ground , ground , stone_ground , ground, 6 , 0.5,0.5,0.5);
+         cubex(0.95,0.001,3.0 , 0.2,0.002,1.0 , 0 , ground , ground , ground , ground , stone_ground , ground, 6 , 0.5,0.5,0.5);
 
          /* ********************************* PAVEMENT 1  ******************************************/ 
 
@@ -1044,14 +1136,155 @@ void drawAll(){
          // house(4.3,0.3,0.0 , 0.3,0.3,0.3 , 0, 0);
 
 
-         // The the sun
-         sphere(1.0,10.0,1.0,0.3 , 0.3,0.3,0.3);
+         // // The the sun
+         // sphere(1.0,100.0,1.0,0.3 , 0.3,0.3,0.3);
+
+         
+}
+
+void drawConstructFences(){
+         /*
+            FENCE WALLS ON X
+         */
+         // x = -8
+         cubex(-8.0,0.05,0.0 , 0.01,0.05,10 , 0 , ground , ground , ground , ground , ground , ground, 1 , 1,1,1);
+
+         // x = -6
+         cubex(-6.0,0.05,0.0 , 0.01,0.05,10 , 0 , ground , ground , ground , ground , ground , ground, 1 , 1,1,1);
+
+         // x = -4
+         cubex(-4.0,0.05,0.0 , 0.01,0.05,10 , 0 , ground , ground , ground , ground , ground , ground, 1 , 1,1,1);
+
+         // x = -2
+         cubex(-2.0,0.05,0.0 , 0.01,0.05,10 , 0 , ground , ground , ground , ground , ground , ground, 1 , 1,1,1);
+
+         /*
+         // x = 0
+         cubex(0.0,0.2,0.0 , 0.01,0.2,10 , 0 , ground , ground , ground , ground , ground , ground, 1 , 1,1,1);
+         */
+
+         // x = 2
+         cubex(2.0,0.05,0.0 , 0.01,0.05,10 , 0 , ground , ground , ground , ground , ground , ground, 1 , 1,1,1);
+
+         // x = 4
+         cubex(4.0,0.05,0.0 , 0.01,0.05,10 , 0 , ground , ground , ground , ground , ground , ground, 1 , 1,1,1);
+
+         // // x = 6
+         // cubex(6.0,0.05,0.0 , 0.01,0.05,10 , 0 , ground , ground , ground , ground , ground , ground, 1 , 1,1,1);
+
+         // x = 8
+         cubex(8.0,0.05,0.0 , 0.01,0.05,10 , 0 , ground , ground , ground , ground , ground , ground, 1 , 1,1,1);
+
+         /*
+            FENCE WALLS ON z
+         */
+         // x = -4
+         cubex(0.0,0.2,-4.0 , 10,0.05,0.005 , 0 , ground , ground , ground , ground , ground , ground, 1 , 1,1,1);
+
+         // x = -2
+         cubex(0.0,0.0025,-2.0 , 10,0.0025,0.005 , 0 , ground , ground , ground , ground , ground , ground, 1 , 1,1,1);
+
+         // x = -1
+         cubex(0.0,0.0025,-1.0 , 10,0.0025,0.005 , 0 , ground , ground , ground , ground , ground , ground, 1 , 1,1,1);
+
+         // z = 1
+         cubex(0.0,0.0025,+1.0 , 10,0.0025,0.005 , 0 , ground , ground , ground , ground , ground , ground, 1 , 1,1,1);
+
+         // x = 2
+         cubex(0.0,0.0025,+2.0 , 10,0.0025,0.005 , 0 , ground , ground , ground , ground , ground , ground, 1 , 1,1,1);
+
+         // x = 4
+         cubex(0.0,0.0025,+4.0 , 10,0.0025,0.005 , 0 , ground , ground , ground , ground , ground , ground, 1 , 1,1,1);
+
+         // x = 5
+         cubex(0.0,0.0025,+5.0 , 10,0.0025,0.005 , 0 , ground , ground , ground , ground , ground , ground, 1 , 1,1,1);
+
+         // x = 7
+         cubex(0.0,0.0025,+7.0 , 10,0.0025,0.005 , 0 , ground , ground , ground , ground , ground , ground, 1 , 1,1,1);
+
+}
+
+
+
+void drawCars(){
+
+   //  Draw car position 
+   car(car_x,0,car_z, car_angle, ground, 1);
+   car(car_x2,0,car_z2, car_angle2, tiles, 1);
+   car(car_x3,0,car_z3, car_angle3, red_wall, 1);
+   car(car_x4,0,car_z4, car_angle4, concrete_wall, 1);
+   car(car_x5,0,car_z5, car_angle5, tiles, 1);
+   //  Light switch
+   // if (light)
+   // {
+   //      //  Translate intensity to color vectors
+   //      float Ambient[]   = {0.01*ambient ,0.01*ambient ,0.01*ambient ,1.0};
+   //      float Diffuse[]   = {0.01*diffuse ,0.01*diffuse ,0.01*diffuse ,1.0};
+   //      float Specular[]  = {0.01*specular,0.01*specular,0.01*specular,1.0};
+   //      //  Light position
+   //      float Position2[]  = {car_x,0.2,car_z,1.0};
+   //      float Position3[]  = {car_x2,0.2,car_z2,1.0};
+   //      float Position4[]  = {car_x3,0.2,car_z3,1.0};
+   //      float Position5[]  = {car_x4,0.2,car_z4,1.0};
+   //      float Position6[]  = {car_x5,0.2,car_z5,1.0};
+   //      //  Draw light position as sphere (still no lighting here)
+   //      glColor3f(1,1,1);
+   //      // sphere(Position[0],Position[1],Position[2],0.1 , 0.1,0.1,0.1);
+   //      //  OpenGL should normalize normal vectors
+   //      glEnable(GL_NORMALIZE);
+   //      //  Enable lighting
+   //      glEnable(GL_LIGHTING);
+   //      //  Location of viewer for specular calculations
+   //      glLightModeli(GL_LIGHT_MODEL_LOCAL_VIEWER,local);
+   //      //  glColor sets ambient and diffuse color materials
+   //      glColorMaterial(GL_FRONT_AND_BACK,GL_AMBIENT_AND_DIFFUSE);
+   //      glEnable(GL_COLOR_MATERIAL);
+   //      //  Enable light 0
+   //      glEnable(GL_LIGHT2);
+   //      //  Set ambient, diffuse, specular components and position of light 0
+   //      glLightfv(GL_LIGHT2,GL_AMBIENT ,Ambient);
+   //      glLightfv(GL_LIGHT2,GL_DIFFUSE ,Diffuse);
+   //      glLightfv(GL_LIGHT2,GL_SPECULAR,Specular);
+   //      glLightfv(GL_LIGHT2,GL_POSITION,Position2);
+   //      //  Enable light 0
+   //      glEnable(GL_LIGHT3);
+   //      //  Set ambient, diffuse, specular components and position of light 0
+   //      glLightfv(GL_LIGHT3,GL_AMBIENT ,Ambient);
+   //      glLightfv(GL_LIGHT3,GL_DIFFUSE ,Diffuse);
+   //      glLightfv(GL_LIGHT3,GL_SPECULAR,Specular);
+   //      glLightfv(GL_LIGHT3,GL_POSITION,Position3);
+   //      //  Enable light 0
+   //      glEnable(GL_LIGHT4);
+   //      //  Set ambient, diffuse, specular components and position of light 0
+   //      glLightfv(GL_LIGHT4,GL_AMBIENT ,Ambient);
+   //      glLightfv(GL_LIGHT4,GL_DIFFUSE ,Diffuse);
+   //      glLightfv(GL_LIGHT4,GL_SPECULAR,Specular);
+   //      glLightfv(GL_LIGHT4,GL_POSITION,Position4);
+   //      //  Enable light 0
+   //      glEnable(GL_LIGHT5);
+   //      //  Set ambient, diffuse, specular components and position of light 0
+   //      glLightfv(GL_LIGHT5,GL_AMBIENT ,Ambient);
+   //      glLightfv(GL_LIGHT5,GL_DIFFUSE ,Diffuse);
+   //      glLightfv(GL_LIGHT5,GL_SPECULAR,Specular);
+   //      glLightfv(GL_LIGHT5,GL_POSITION,Position5);
+   //      //  Enable light 0
+   //      glEnable(GL_LIGHT6);
+   //      //  Set ambient, diffuse, specular components and position of light 0
+   //      glLightfv(GL_LIGHT6,GL_AMBIENT ,Ambient);
+   //      glLightfv(GL_LIGHT6,GL_DIFFUSE ,Diffuse);
+   //      glLightfv(GL_LIGHT6,GL_SPECULAR,Specular);
+   //      glLightfv(GL_LIGHT6,GL_POSITION,Position6);
+   // }
+   // else
+   //   glDisable(GL_LIGHTING);
+
 }
 /*
  *  OpenGL (GLUT) calls this routine to display the scene
  */
 void display()
 {
+   glEnable(GL_LIGHTING);
    const double len=20;  //  Length of axes
    //  Erase the window and the depth buffer
    glClear(GL_COLOR_BUFFER_BIT|GL_DEPTH_BUFFER_BIT);
@@ -1086,53 +1319,76 @@ void display()
    glShadeModel(smooth ? GL_SMOOTH : GL_FLAT);
 
 
-   /********************************************************************* Car Motion *********************************************************************/
 
-   //  Draw car position 
+   /* REVOLVING LIGHT STARTS HERE */
 
-   car(car_x,0,car_z, car_angle, ground, 1);
-   car(car_x2,0,car_z2, car_angle2, tiles, 1);
-   car(car_x3,0,car_z3, car_angle3, red_wall, 1);
-   car(car_x4,0,car_z4, car_angle4, concrete_wall, 1);
-   car(car_x5,0,car_z5, car_angle5, tiles, 1);
+   // //  Light switch
+   // if (light)
+   // {
+   //      //  Translate intensity to color vectors
+   //      float Ambient[]   = {0.01*ambient ,0.01*ambient ,0.01*ambient ,1.0};
+   //      float Diffuse[]   = {0.01*diffuse ,0.01*diffuse ,0.01*diffuse ,1.0};
+   //      float Specular[]  = {0.01*specular,0.01*specular,0.01*specular,1.0};
+   //      //  Light position
+   //      float Position[]  = {distance*Cos(zh),ylight,distance*Sin(zh),1.0};
+   //      //  Draw light position as sphere (still no lighting here)
+   //      glColor3f(1,1,1);
+   //      sphere(Position[0],Position[1],Position[2],0.1 , 0.1,0.1,0.1);
+   //      //  OpenGL should normalize normal vectors
+   //      glEnable(GL_NORMALIZE);
+   //      //  Enable lighting
+   //      glEnable(GL_LIGHTING);
+   //      //  Location of viewer for specular calculations
+   //      glLightModeli(GL_LIGHT_MODEL_LOCAL_VIEWER,local);
+   //      //  glColor sets ambient and diffuse color materials
+   //      glColorMaterial(GL_FRONT_AND_BACK,GL_AMBIENT_AND_DIFFUSE);
+   //      glEnable(GL_COLOR_MATERIAL);
+   //      //  Enable light 0
+   //      glEnable(GL_LIGHT0);
+   //      //  Set ambient, diffuse, specular components and position of light 0
+   //      glLightfv(GL_LIGHT0,GL_AMBIENT ,Ambient);
+   //      glLightfv(GL_LIGHT0,GL_DIFFUSE ,Diffuse);
+   //      glLightfv(GL_LIGHT0,GL_SPECULAR,Specular);
+   //      glLightfv(GL_LIGHT0,GL_POSITION,Position);
+   // }
+   // else
+   //   glDisable(GL_LIGHTING);
+
+   /* REVOLVING LIGHT ENDS HERE */
+
+   // glPushMatrix();
+   // glTranslated(0,0,0.99);
+   // glScaled(0.005,0.005,0.005);
+   // lightpole(0,0,0.99, 0, concrete_wall, 1);
+   // lightpole(0.5,0,0.99, 0, concrete_wall, 1);
+   // lightpole(1,0,0.99, 0, concrete_wall, 1);
+   // glPopMatrix();
+   // roadPiece(0,0,1);
+
+   
+
+   // Right street
+   roadPiece(4.3,-0.1,-2);
+   roadPiece(1.5,-0.1,-2);
+   roadPiece(-1.3,-0.1,-2);
+   streetLight(-3.4,-0.1,-1,180);
+
+   // Middle street
+   roadPiece(4.3,-0.1,1);
+   roadPiece(1.5,-0.1,1);
+   roadPiece(-1.3,-0.1,1);
+   streetLight(-3.4,-0.1,2,180);
+
+   // Left street
+   roadPiece(4.3,-0.1,4);
+   roadPiece(1.5,-0.1,4);
+   roadPiece(-1.3,-0.1,4);
+   streetLight(-3.4,-0.1,5,180);
 
 
-
-  /********************************************************************* Car Motion END *********************************************************************/
-
-   //  Light switch
-   if (light)
-   {
-        //  Translate intensity to color vectors
-        float Ambient[]   = {0.01*ambient ,0.01*ambient ,0.01*ambient ,1.0};
-        float Diffuse[]   = {0.01*diffuse ,0.01*diffuse ,0.01*diffuse ,1.0};
-        float Specular[]  = {0.01*specular,0.01*specular,0.01*specular,1.0};
-        //  Light position
-        float Position[]  = {distance*Cos(zh),ylight,distance*Sin(zh),1.0};
-        //  Draw light position as sphere (still no lighting here)
-        glColor3f(1,1,1);
-        sphere(Position[0],Position[1],Position[2],0.1 , 0.1,0.1,0.1);
-        //  OpenGL should normalize normal vectors
-        glEnable(GL_NORMALIZE);
-        //  Enable lighting
-        glEnable(GL_LIGHTING);
-        //  Location of viewer for specular calculations
-        glLightModeli(GL_LIGHT_MODEL_LOCAL_VIEWER,local);
-        //  glColor sets ambient and diffuse color materials
-        glColorMaterial(GL_FRONT_AND_BACK,GL_AMBIENT_AND_DIFFUSE);
-        glEnable(GL_COLOR_MATERIAL);
-        //  Enable light 0
-        glEnable(GL_LIGHT0);
-        //  Set ambient, diffuse, specular components and position of light 0
-        glLightfv(GL_LIGHT0,GL_AMBIENT ,Ambient);
-        glLightfv(GL_LIGHT0,GL_DIFFUSE ,Diffuse);
-        glLightfv(GL_LIGHT0,GL_SPECULAR,Specular);
-        glLightfv(GL_LIGHT0,GL_POSITION,Position);
-   }
-   else
-     glDisable(GL_LIGHTING);
-
-   drawAll();
+   drawCity();
+   drawCars();
+   // drawConstructFences();
 
    /******************************************** ACTUAL CAR IS HERE ********************************************/
 
@@ -1141,7 +1397,7 @@ void display()
    /******************************************** NO CAR AFTER THIS ********************************************/
         
    //  Draw axes - no lighting from here on
-   glDisable(GL_LIGHTING);
+   // glDisable(GL_LIGHTING);
    glColor3f(1,1,1);
    if (axes)
    {
@@ -1483,6 +1739,7 @@ static void building30(float x, float z){
 }
 
 
+
 /**************************************************************************************************************************************************/
 
 /*
@@ -1494,6 +1751,7 @@ void idle()
    if(move){
       //  Elapsed time in seconds
       zh = fmod(90*t,360.0);
+      pole_light = fmod(90*t,360.0);
       //  Tell GLUT it is necessary to redisplay the scene
       glutPostRedisplay();
    }
@@ -1942,6 +2200,7 @@ int main(int argc,char* argv[])
    building_top = LoadTexBMP("textures/old_facade.bmp");
    yellow_car = LoadTexBMP("textures/yellow_car.bmp");
 
+   glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
    //  Pass control to GLUT so it can interact with the user
    ErrCheck("init");
    glutMainLoop();
